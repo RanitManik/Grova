@@ -1,0 +1,252 @@
+// Grova Prisma Schema
+// Run: pnpm db:generate && pnpm db:push
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================
+// USER
+// ============================================================
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  username      String?   @unique
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  bio           String?
+  location      String?
+  website       String?
+  company       String?
+
+  // Streak stats (denormalized for fast reads)
+  currentStreak      Int   @default(0)
+  longestStreak      Int   @default(0)
+  totalContributions Int   @default(0)
+  completionRate     Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  goals         Goal[]
+  dailyLogs     DailyLog[]
+  quickNotes    QuickNote[]
+  notifications Notification[]
+
+  followers Follow[] @relation("Following")
+  following Follow[] @relation("Follower")
+
+  @@map("users")
+}
+
+// ============================================================
+// NEXTAUTH - Account / Session / VerificationToken
+// ============================================================
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================================
+// GOAL
+// ============================================================
+enum GoalType {
+  TOTAL_TARGET
+  DAILY_RECURRING
+  WEEKLY_RECURRING
+}
+
+enum GoalStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ABANDONED
+}
+
+enum GoalCategory {
+  WORK
+  STUDY
+  HEALTH
+  MINDFULNESS
+  FINANCE
+  CREATIVE
+  SOCIAL
+  OTHER
+}
+
+model Goal {
+  id          String       @id @default(cuid())
+  userId      String
+  title       String
+  description String?      @db.Text
+  type        GoalType     @default(TOTAL_TARGET)
+  status      GoalStatus   @default(ACTIVE)
+  category    GoalCategory @default(OTHER)
+  color       String       @default("#238636")
+
+  // Target metrics
+  targetAmount Float
+  unit         String
+
+  // Date range
+  startDate DateTime
+  endDate   DateTime
+
+  // Denormalized progress
+  completedAmount Float @default(0)
+  dailyTarget     Float @default(0)
+
+  isPublic Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyLogs DailyLog[]
+
+  @@index([userId, status])
+  @@index([userId, startDate])
+  @@map("goals")
+}
+
+// ============================================================
+// DAILY LOG — powers heatmap & streak calculation
+// ============================================================
+enum LogStatus {
+  PENDING
+  COMPLETED
+  SKIPPED
+  PARTIAL
+}
+
+model DailyLog {
+  id              String    @id @default(cuid())
+  userId          String
+  goalId          String
+  date            DateTime  @db.Date
+  completedAmount Float     @default(0)
+  targetAmount    Float     @default(0)
+  status          LogStatus @default(PENDING)
+  notes           String?   @db.Text
+  completedAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@unique([goalId, date])
+  @@index([userId, date])
+  @@index([userId, status])
+  @@map("daily_logs")
+}
+
+// ============================================================
+// FOLLOW
+// ============================================================
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  follower  User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+  @@map("follows")
+}
+
+// ============================================================
+// NOTIFICATION
+// ============================================================
+enum NotificationType {
+  STREAK_MILESTONE
+  GOAL_COMPLETED
+  FOLLOWER_NEW
+  GOAL_AT_RISK
+  FRIEND_COMPLETED
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  isRead    Boolean          @default(false)
+  actionUrl String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+// ============================================================
+// QUICK NOTE
+// ============================================================
+model QuickNote {
+  id      String   @id @default(cuid())
+  userId  String
+  date    DateTime @db.Date
+  content String   @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("quick_notes")
+}

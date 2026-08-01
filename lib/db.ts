@@ -1,0 +1,30 @@
+import { PrismaClient } from "@prisma/client";
+import { PrismaNeon } from "@prisma/adapter-neon";
+
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+function getConnectionString(): string {
+  const url = process.env.DATABASE_URL || process.env.DIRECT_URL;
+  if (!url) {
+    throw new Error(
+      "DATABASE_URL or DIRECT_URL is not set in the environment variables.",
+    );
+  }
+  return url.replace(/&?channel_binding=[^&]*/g, "").replace(/\?&/g, "?");
+}
+
+function createPrismaClient() {
+  const connectionString = getConnectionString();
+  const adapter = new PrismaNeon({ connectionString });
+
+  return new PrismaClient({
+    adapter,
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
+  });
+}
+
+export const db = globalForPrisma.prisma ?? createPrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
