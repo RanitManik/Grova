@@ -83,14 +83,57 @@ export function formatDayHeader(date: Date | string = new Date()): string {
   return `${days[d.getUTCDay()]}, ${months[d.getUTCMonth()]} ${d.getUTCDate()}`;
 }
 
-/** Get time remaining until 00:00 UTC (LeetCode daily reset timer) */
-export function getUTCResetCountdown(): {
+export interface UTCTimeInfo {
+  dayName: string;
+  dayShort: string;
+  dateFormatted: string;
+  timeFormatted: string;
+  timeWithZone: string;
+  days: number;
   hours: number;
   minutes: number;
   seconds: number;
   formatted: string;
-} {
+}
+
+/** Get full UTC time info including day, current UTC time, and reset countdown */
+export function getUTCTimeInfo(): UTCTimeInfo {
   const now = new Date();
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const daysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const dayName = days[now.getUTCDay()];
+  const dayShort = daysShort[now.getUTCDay()];
+  const dateFormatted = `${dayShort}, ${months[now.getUTCMonth()]} ${now.getUTCDate()}`;
+
+  const h = String(now.getUTCHours()).padStart(2, "0");
+  const m = String(now.getUTCMinutes()).padStart(2, "0");
+  const s = String(now.getUTCSeconds()).padStart(2, "0");
+  const timeFormatted = `${h}:${m}:${s}`;
+  const timeWithZone = `${h}:${m}:${s} UTC`;
+
   const nextReset = new Date(
     Date.UTC(
       now.getUTCFullYear(),
@@ -103,11 +146,44 @@ export function getUTCResetCountdown(): {
     ),
   );
   const diffMs = Math.max(0, nextReset.getTime() - now.getTime());
-  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const resetDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
-  const formatted = `${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
-  return { hours, minutes, seconds, formatted };
+
+  const formatted =
+    resetDays > 0
+      ? `${resetDays}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`
+      : `${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+
+  return {
+    dayName,
+    dayShort,
+    dateFormatted,
+    timeFormatted,
+    timeWithZone,
+    days: resetDays,
+    hours,
+    minutes,
+    seconds,
+    formatted,
+  };
+}
+
+/** Get time remaining until 00:00 UTC (LeetCode daily reset timer) */
+export function getUTCResetCountdown(): {
+  hours: number;
+  minutes: number;
+  seconds: number;
+  formatted: string;
+} {
+  const info = getUTCTimeInfo();
+  return {
+    hours: info.hours,
+    minutes: info.minutes,
+    seconds: info.seconds,
+    formatted: info.formatted,
+  };
 }
 
 /** Format date as relative "2 hours ago" */

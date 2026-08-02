@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { LayoutDashboard, Target, BarChart2, Users, Globe } from "lucide-react";
-import { cn, getUTCResetCountdown } from "@/lib/utils";
+import { cn, getUTCTimeInfo, type UTCTimeInfo } from "@/lib/utils";
 import { GrovaLogo } from "@/components/shared/logo";
 
 interface NavProps {
@@ -32,7 +32,7 @@ const landingLinks = [
 
 export function Navbar({ user }: NavProps) {
   const pathname = usePathname();
-  const [countdown, setCountdown] = useState<string>("");
+  const [timeInfo, setTimeInfo] = useState<UTCTimeInfo | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -40,8 +40,7 @@ export function Navbar({ user }: NavProps) {
 
   useEffect(() => {
     const updateTimer = () => {
-      const { formatted } = getUTCResetCountdown();
-      setCountdown(formatted);
+      setTimeInfo(getUTCTimeInfo());
     };
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
@@ -78,16 +77,21 @@ export function Navbar({ user }: NavProps) {
             <div className="hidden h-4 w-px bg-[#30363d] lg:block" />
           )}
 
-          {/* Timezone Indicator - Single Line, No Layout Shift */}
-          {pathname !== "/" && (
-            <div className="hidden items-center gap-1.5 text-xs text-[#8b949e] lg:flex">
+          {/* Timezone Indicator - Day, Live Time & Countdown */}
+          {pathname !== "/" && timeInfo && (
+            <div className="hidden items-center gap-2 text-xs text-[#8b949e] lg:flex">
               <Globe className="h-3.5 w-3.5 text-[#8b949e]" />
-              <span className="font-medium">UTC</span>
-              {countdown && (
-                <span className="ml-1 font-mono whitespace-nowrap text-[#c9d1d9] tabular-nums">
-                  {countdown}
-                </span>
-              )}
+              <span className="font-semibold text-[#c9d1d9]">
+                {timeInfo.dateFormatted}
+              </span>
+              <span className="font-mono text-[#c9d1d9] tabular-nums">
+                {timeInfo.timeWithZone}
+              </span>
+              <span className="text-[#30363d]">|</span>
+              <span className="text-[#8b949e]">Reset in:</span>
+              <span className="font-mono whitespace-nowrap text-[#c9d1d9] tabular-nums">
+                {timeInfo.formatted}
+              </span>
             </div>
           )}
         </div>
@@ -135,9 +139,9 @@ export function Navbar({ user }: NavProps) {
         {/* Right Side */}
         <div className="flex items-center gap-3">
           {/* UTC Mobile Badge */}
-          {pathname !== "/" && countdown && (
+          {pathname !== "/" && timeInfo?.formatted && (
             <div className="flex items-center font-mono text-xs whitespace-nowrap text-[#8b949e] tabular-nums lg:hidden">
-              {countdown}
+              {timeInfo.formatted}
             </div>
           )}
 

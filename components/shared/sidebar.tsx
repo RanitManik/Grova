@@ -16,8 +16,10 @@ import {
   X,
   Flame,
   Clock,
+  Calendar,
+  Timer,
 } from "lucide-react";
-import { cn, getUTCResetCountdown } from "@/lib/utils";
+import { cn, getUTCTimeInfo, type UTCTimeInfo } from "@/lib/utils";
 import { GrovaLogo } from "@/components/shared/logo";
 
 export interface SidebarUser {
@@ -34,15 +36,14 @@ interface SidebarLayoutProps {
 
 export function SidebarLayout({ user, children }: SidebarLayoutProps) {
   const pathname = usePathname();
-  const [countdown, setCountdown] = useState<string>("");
+  const [timeInfo, setTimeInfo] = useState<UTCTimeInfo | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
-  // UTC countdown timer
+  // UTC clock & countdown timer
   useEffect(() => {
     const updateTimer = () => {
-      const { formatted } = getUTCResetCountdown();
-      setCountdown(formatted);
+      setTimeInfo(getUTCTimeInfo());
     };
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
@@ -166,24 +167,49 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
           {renderNavItems(true)}
         </div>
 
-        {/* Mobile Stats Card (Rounded matching page cards) */}
+        {/* Mobile Stats Card */}
         <div className="mx-3 mb-2.5 space-y-2 rounded-md border border-[#30363d] bg-[#161b22] p-2.5 text-xs">
-          <div className="flex items-center justify-between text-[#8b949e]">
+          {/* Streak */}
+          <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-medium text-[#c9d1d9]">
               <Flame className="h-3.5 w-3.5 shrink-0 text-amber-500" />
               Streak
             </span>
-            <span className="font-bold text-[#3fb950]">
+            <span className="font-semibold text-[#c9d1d9]">
               {user?.currentStreak ?? 0} days
             </span>
           </div>
+
+          {/* Day & Date */}
           <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-1.5 text-[#8b949e]">
             <span className="flex items-center gap-1.5 font-medium text-[#8b949e]">
-              <Clock className="h-3.5 w-3.5 shrink-0" />
+              <Calendar className="h-3.5 w-3.5 shrink-0 text-[#58a6ff]" />
+              Day
+            </span>
+            <span className="font-semibold text-[#c9d1d9]">
+              {timeInfo?.dateFormatted ?? "..."}
+            </span>
+          </div>
+
+          {/* Time (UTC) */}
+          <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-1.5 text-[#8b949e]">
+            <span className="flex items-center gap-1.5 font-medium text-[#8b949e]">
+              <Clock className="h-3.5 w-3.5 shrink-0 text-[#58a6ff]" />
+              Time (UTC)
+            </span>
+            <span className="font-mono text-[11px] font-semibold text-[#c9d1d9] tabular-nums">
+              {timeInfo?.timeFormatted ?? "..."}
+            </span>
+          </div>
+
+          {/* UTC Reset */}
+          <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-1.5 text-[#8b949e]">
+            <span className="flex items-center gap-1.5 font-medium text-[#8b949e]">
+              <Timer className="h-3.5 w-3.5 shrink-0 text-[#58a6ff]" />
               UTC Reset
             </span>
             <span className="font-mono text-[11px] font-semibold text-[#c9d1d9] tabular-nums">
-              {countdown}
+              {timeInfo?.formatted ?? "..."}
             </span>
           </div>
         </div>
@@ -253,25 +279,49 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
           {renderNavItems(false)}
         </div>
 
-        {/* Stats Card (Rounded matching page cards) */}
+        {/* Desktop Stats Card */}
         <div className="mx-3 mb-2.5 space-y-2 rounded-md border border-[#30363d] bg-[#161b22] p-2.5 text-xs">
+          {/* Streak */}
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-medium text-[#c9d1d9]">
               <Flame className="h-3.5 w-3.5 shrink-0 text-amber-500" />
               Streak
             </span>
-            <span className="font-bold text-[#3fb950]">
+            <span className="font-semibold text-[#c9d1d9]">
               {user?.currentStreak ?? 0} days
             </span>
           </div>
 
+          {/* Day & Date */}
           <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-1.5 text-[#8b949e]">
             <span className="flex items-center gap-1.5 font-medium text-[#8b949e]">
-              <Clock className="h-3.5 w-3.5 shrink-0" />
+              <Calendar className="h-3.5 w-3.5 shrink-0 text-[#58a6ff]" />
+              Day
+            </span>
+            <span className="font-semibold text-[#c9d1d9]">
+              {timeInfo?.dateFormatted ?? "..."}
+            </span>
+          </div>
+
+          {/* Time (UTC) */}
+          <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-1.5 text-[#8b949e]">
+            <span className="flex items-center gap-1.5 font-medium text-[#8b949e]">
+              <Clock className="h-3.5 w-3.5 shrink-0 text-[#58a6ff]" />
+              Time (UTC)
+            </span>
+            <span className="font-mono text-[11px] font-semibold text-[#c9d1d9] tabular-nums">
+              {timeInfo?.timeFormatted ?? "..."}
+            </span>
+          </div>
+
+          {/* UTC Reset */}
+          <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-1.5 text-[#8b949e]">
+            <span className="flex items-center gap-1.5 font-medium text-[#8b949e]">
+              <Timer className="h-3.5 w-3.5 shrink-0 text-[#58a6ff]" />
               UTC Reset
             </span>
             <span className="font-mono text-[11px] font-semibold text-[#c9d1d9] tabular-nums">
-              {countdown}
+              {timeInfo?.formatted ?? "..."}
             </span>
           </div>
         </div>
