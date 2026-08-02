@@ -23,8 +23,12 @@ const createGoalSchema = z.object({
   color: z.string().default("#238636"),
   targetAmount: z.number().positive(),
   unit: z.string().min(1).max(30),
-  startDate: z.string().datetime(),
-  endDate: z.string().datetime(),
+  startDate: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), "Invalid start date"),
+  endDate: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), "Invalid end date"),
   isPublic: z.boolean().default(true),
 });
 

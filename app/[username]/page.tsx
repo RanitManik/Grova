@@ -11,7 +11,6 @@ import {
   Activity,
   Flag,
   Check,
-  Trophy,
   Link as LinkIcon,
   Users,
 } from "lucide-react";
@@ -170,7 +169,7 @@ export default async function PublicProfilePage({ params }: Props) {
       <Navbar user={session?.user as any} />
 
       {/* ── Main Container ── */}
-      <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+      <main className="animate-fade-in mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-[#8b949e]">
           <Link
@@ -219,8 +218,18 @@ export default async function PublicProfilePage({ params }: Props) {
                 <span>•</span>
                 <span>Member since {format(user.createdAt, "yyyy")}</span>
                 <span>•</span>
-                <span className="inline-flex items-center gap-1 rounded-full border border-[#30363d] bg-[#161b22] px-2.5 py-0.5 text-[11px] font-medium text-white">
-                  <Trophy className="h-3 w-3 text-yellow-400" /> Top 5%
+                <span className="flex items-center gap-1">
+                  <span className="font-medium text-[#e6edf3]">
+                    {user._count.followers}
+                  </span>{" "}
+                  followers
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <span className="font-medium text-[#e6edf3]">
+                    {user._count.following}
+                  </span>{" "}
+                  following
                 </span>
               </div>
 
@@ -283,9 +292,6 @@ export default async function PublicProfilePage({ params }: Props) {
                     Follow
                   </button>
                 )}
-                <button className="rounded-md bg-[#00e676] px-4 py-1.5 text-xs font-bold text-black transition-colors hover:bg-[#00c853]">
-                  Sponsor
-                </button>
               </>
             )}
           </div>

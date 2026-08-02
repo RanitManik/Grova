@@ -41,7 +41,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Goal not found" }, { status: 404 });
   }
 
-  const logDate = new Date(date);
+  const cleanDateStr = date.split("T")[0];
+  const logDate = new Date(`${cleanDateStr}T00:00:00.000Z`);
 
   // Determine actual status
   let logStatus = status;
@@ -103,7 +104,8 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "date is required" }, { status: 400 });
   }
 
-  const date = new Date(dateStr);
+  const cleanDateStr = dateStr.split("T")[0];
+  const date = new Date(`${cleanDateStr}T00:00:00.000Z`);
 
   const logs = await db.dailyLog.findMany({
     where: {

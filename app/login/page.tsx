@@ -1,87 +1,85 @@
 import { Metadata } from "next";
 import { signIn } from "@/auth";
 import Link from "next/link";
-import { Card, Button } from "@/components/ui";
 import { GrovaLogo } from "@/components/shared/logo";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Sign In",
+  title: "Sign In — Grova",
   description: "Sign in to Grova to track your goals and build streaks.",
 };
 
 export default function LoginPage() {
   return (
-    <div className="bg-background relative flex min-h-screen items-center justify-center overflow-hidden px-4">
-      {/* Background gradients and grid pattern */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      {/* Dynamic Glow Orbs */}
-      <div className="bg-primary-glow/15 pointer-events-none absolute top-1/2 left-1/2 h-125 w-125 -translate-x-1/2 -translate-y-1/2 rounded-full mix-blend-screen blur-[120px]" />
-      <div className="bg-info/10 pointer-events-none absolute top-1/3 left-1/3 h-100 w-100 -translate-x-1/2 -translate-y-1/2 rounded-full mix-blend-screen blur-[100px]" />
-      <div className="bg-purple/10 pointer-events-none absolute right-1/3 bottom-1/3 h-100 w-100 translate-x-1/4 translate-y-1/4 rounded-full mix-blend-screen blur-[100px]" />
-
-      <div className="relative w-full max-w-sm">
-        {/* Logo */}
-        <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center">
-            <GrovaLogo className="h-12 w-12" />
-          </div>
-          <h1 className="text-foreground text-2xl font-bold tracking-tight">
-            Welcome to Grova
-          </h1>
-          <p className="text-muted-foreground mt-2 text-sm">
-            Sign in to start tracking your growth
-          </p>
+    <div className="flex h-screen overflow-hidden bg-[#0d1117] font-sans">
+      {/* ══ LEFT — Form ══════════════════════════════════════════════ */}
+      <div className="relative flex w-full flex-col items-center justify-center px-8 py-16 lg:w-3/5 lg:shrink-0">
+        {/* Logo — top left */}
+        <div className="absolute top-8 left-8">
+          <Link
+            href="/"
+            className="flex items-center gap-2 transition-opacity hover:opacity-80"
+          >
+            <GrovaLogo className="h-7 w-7" />
+            <span className="text-sm font-semibold text-[#e6edf3]">Grova</span>
+          </Link>
         </div>
 
-        {/* Auth Card */}
-        <Card className="bg-[#0d1117]/80 p-6 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col gap-3">
-            {/* GitHub OAuth */}
+        <div className="w-full max-w-105">
+          {/* Back to home */}
+          <Link
+            href="/"
+            className="mb-7 inline-flex items-center gap-1.5 text-sm font-medium text-[#8b949e] transition-colors hover:text-[#c9d1d9]"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to home
+          </Link>
+
+          {/* Heading */}
+          <h1 className="text-3xl leading-tight font-bold tracking-tight text-[#e6edf3]">
+            Start building
+            <br />
+            your streak today
+          </h1>
+          <p className="mt-2 text-sm text-[#8b949e]">
+            Sign in to track goals and show your growth publicly.
+          </p>
+
+          {/* Auth buttons */}
+          <div className="mt-8 flex flex-col gap-2.5">
             <form
               action={async () => {
                 "use server";
                 await signIn("github", { redirectTo: "/dashboard" });
               }}
             >
-              <Button
+              <button
                 type="submit"
-                variant="secondary"
-                size="lg"
-                className="w-full justify-center"
+                className="group flex w-full cursor-pointer items-center gap-3 rounded border border-[#30363d] bg-[#21262d] px-4 py-2.5 text-sm font-medium text-[#c9d1d9] transition-all hover:border-[#8b949e] hover:bg-[#30363d] hover:text-white active:scale-[0.99]"
               >
                 <svg
-                  className="h-5 w-5"
+                  className="h-4.5 w-4.5 shrink-0"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
-                Continue with GitHub
-              </Button>
+                <span className="flex-1 text-center">Continue with GitHub</span>
+                <ArrowRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-60" />
+              </button>
             </form>
 
-            {/* Google OAuth */}
             <form
               action={async () => {
                 "use server";
                 await signIn("google", { redirectTo: "/dashboard" });
               }}
             >
-              <Button
+              <button
                 type="submit"
-                variant="secondary"
-                size="lg"
-                className="w-full justify-center"
+                className="group flex w-full cursor-pointer items-center gap-3 rounded-md border border-[#30363d] bg-[#21262d] px-4 py-2.5 text-sm font-medium text-[#c9d1d9] transition-all hover:border-[#8b949e] hover:bg-[#30363d] hover:text-white active:scale-[0.99]"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24">
+                <svg className="h-4.5 w-4.5 shrink-0" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -99,26 +97,48 @@ export default function LoginPage() {
                     fill="#EA4335"
                   />
                 </svg>
-                Continue with Google
-              </Button>
+                <span className="flex-1 text-center">Continue with Google</span>
+                <ArrowRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-60" />
+              </button>
             </form>
           </div>
 
-          <div className="border-border-muted text-subtle-foreground mt-5 border-t pt-4 text-center text-xs">
-            By signing in, you agree that your profile and goals will be
-            publicly visible.
+          {/* Stats */}
+          <div className="mt-6 grid grid-cols-3 divide-x divide-[#21262d] overflow-hidden rounded border border-[#21262d] bg-[#161b22]">
+            {[
+              { value: "10K+", label: "Goals Created" },
+              { value: "94%", label: "Avg Completion" },
+              { value: "Free", label: "Always" },
+            ].map((stat) => (
+              <div key={stat.label} className="py-2.5 text-center">
+                <div className="text-sm font-bold text-[#e6edf3]">
+                  {stat.value}
+                </div>
+                <div className="text-[10px] text-[#6e7681]">{stat.label}</div>
+              </div>
+            ))}
           </div>
-        </Card>
 
-        {/* Back link */}
-        <p className="text-subtle-foreground mt-6 text-center text-xs">
-          <Link
-            href="/"
-            className="hover:text-muted-foreground underline underline-offset-2 transition-colors"
-          >
-            ← Back to home
-          </Link>
-        </p>
+          {/* Privacy note */}
+          <p className="mt-4 text-center text-[11px] leading-relaxed text-[#6e7681]">
+            Your profile and goals will be{" "}
+            <span className="text-[#8b949e]">publicly visible</span> — your
+            consistency is your reputation.
+          </p>
+        </div>
+      </div>
+
+      {/* ══ RIGHT — Image ════════════════════════════════════════════ */}
+      {/* Hidden on mobile, full-height on desktop */}
+      <div className="relative hidden overflow-hidden border-l border-[#21262d] lg:block lg:w-2/5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/banner.jpg"
+          alt="Grova dashboard preview"
+          className="h-full w-full object-cover object-top"
+        />
+        {/* Dim overlay */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
     </div>
   );
