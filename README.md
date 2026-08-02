@@ -42,6 +42,9 @@ _Transform your long-term goals into visual streaks, daily consistency heatmaps,
 
 Whether you're tracking coding hours, fitness routines, reading targets, or financial savings, Grova provides an intuitive dashboard with rich visual feedback.
 
+> [!NOTE]
+> **Simple & Easy to Self-Host**: Grova is kept intentionally lightweight and straightforward so that anyone can quickly self-host and customize it. This is a personal/hobby project created for ease of deployment and simplicity.
+
 ## Key Features
 
 - 🟩 **Contribution Heatmap Grid**: Visual 365-day activity grid displaying your daily effort intensity across all active goals.
@@ -232,6 +235,8 @@ git commit -m "feat(analytics): add monthly completion breakdown chart"
 If a commit message does not comply with the convention, the commit will be rejected with actionable feedback.
 
 ## Deployment Guide
+
+For detailed step-by-step instructions on Vercel deployment, Neon PostgreSQL configuration, and custom self-hosting (Docker/VPS/Node), read our full [Deployment & Self-Hosting Guide](docs/DEPLOYMENT.md).
 
 ### Deploying on Vercel
 
