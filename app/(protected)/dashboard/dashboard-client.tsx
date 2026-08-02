@@ -307,7 +307,7 @@ export function DashboardClient({
                 <p className="text-sm font-medium text-[#8b949e]">
                   No active goals for today
                 </p>
-                <Link href="/goals/new" className="mt-4">
+                <Link href="/goals?action=new" className="mt-4">
                   <button className="rounded-md border border-[rgba(255,255,255,0.1)] bg-[#238636] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#2ea043]">
                     Create Goal
                   </button>

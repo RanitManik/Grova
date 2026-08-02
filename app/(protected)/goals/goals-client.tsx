@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Plus, Target, CheckCircle2, X, Calendar } from "lucide-react";
 import { calcProgress, formatDate, cn } from "@/lib/utils";
 import { differenceInDays } from "date-fns";
@@ -22,11 +23,27 @@ interface Goal {
 
 interface GoalsClientProps {
   goals: Goal[];
+  initialCreate?: boolean;
 }
 
-export function GoalsClient({ goals }: GoalsClientProps) {
+export function GoalsClient({
+  goals,
+  initialCreate = false,
+}: GoalsClientProps) {
+  const searchParams = useSearchParams();
+  const actionParam = searchParams.get("action");
+  const newParam = searchParams.get("new");
+  const createParam = searchParams.get("create");
+
+  const hasNewSearchParam =
+    actionParam === "new" || newParam === "true" || createParam === "true";
+
   const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
-  const [isCreating, setIsCreating] = useState(false);
+  const [isCreatingState, setIsCreatingState] = useState(
+    initialCreate || hasNewSearchParam,
+  );
+
+  const isCreating = isCreatingState || hasNewSearchParam;
 
   const activeGoals = goals.filter((g) => g.status === "ACTIVE");
   const completedGoals = goals.filter((g) => g.status === "COMPLETED");
@@ -34,18 +51,34 @@ export function GoalsClient({ goals }: GoalsClientProps) {
   const today = new Date();
 
   const handleSelectGoal = (id: string) => {
-    setIsCreating(false);
+    setIsCreatingState(false);
     setSelectedGoalId(id);
   };
 
   const handleCreateNew = () => {
     setSelectedGoalId(null);
-    setIsCreating(true);
+    setIsCreatingState(true);
   };
 
   const closeSidebar = () => {
-    setIsCreating(false);
+    setIsCreatingState(false);
     setSelectedGoalId(null);
+
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (
+        url.searchParams.has("action") ||
+        url.searchParams.has("new") ||
+        url.searchParams.has("create")
+      ) {
+        url.searchParams.delete("action");
+        url.searchParams.delete("new");
+        url.searchParams.delete("create");
+        const newSearch = url.searchParams.toString();
+        const newPath = url.pathname + (newSearch ? `?${newSearch}` : "");
+        window.history.replaceState({}, "", newPath);
+      }
+    }
   };
 
   const selectedGoal = goals.find((g) => g.id === selectedGoalId);
