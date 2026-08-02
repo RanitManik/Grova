@@ -143,8 +143,8 @@ export default async function PublicProfilePage({ params }: Props) {
     orderBy: { createdAt: "asc" },
   });
 
-  const completedTodayCount = todayLogs.filter(
-    (l) => l.status === "COMPLETED",
+  const completedTodayCount = (todayLogs as Array<{ status: string }>).filter(
+    (l: { status: string }) => l.status === "COMPLETED",
   ).length;
   const totalTodayCount = todayLogs.length;
   const todayCompletionPct =
