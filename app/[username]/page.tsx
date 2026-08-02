@@ -18,6 +18,7 @@ import Link from "next/link";
 import { ContributionHeatmap } from "@/components/shared/heatmap";
 import { SidebarLayout } from "@/components/shared/sidebar";
 import { FollowButton } from "./follow-button";
+import { ShareButton } from "./share-button";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -341,6 +342,10 @@ export default async function PublicProfilePage({ params }: Props) {
 
           {/* Action Buttons */}
           <div className="flex shrink-0 items-center gap-2.5">
+            <ShareButton
+              username={user.username!}
+              name={user.name ?? user.username!}
+            />
             {isOwnProfile ? (
               <Link
                 href="/settings"
@@ -356,9 +361,12 @@ export default async function PublicProfilePage({ params }: Props) {
                     initialFollowing={isFollowing}
                   />
                 ) : (
-                  <button className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-colors hover:border-[#8b949e] hover:bg-[#30363d]">
+                  <Link
+                    href="/login"
+                    className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-colors hover:border-[#8b949e] hover:bg-[#30363d]"
+                  >
                     Follow
-                  </button>
+                  </Link>
                 )}
               </>
             )}
