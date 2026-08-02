@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
-import { Share2, Copy, Check, Sparkles, ExternalLink } from "lucide-react";
+import { Share2, Copy, Check, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ShareButtonProps {
@@ -96,24 +96,18 @@ export function ShareButton({ username, name, className }: ShareButtonProps) {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold text-[#c9d1d9] transition-all duration-150 hover:border-[#8b949e] hover:bg-[#30363d] hover:text-white",
-          isOpen && "border-[#8b949e] bg-[#30363d] text-white",
+          "inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold text-[#c9d1d9] transition-all duration-150 hover:bg-[#30363d] hover:text-white",
+          isOpen && "bg-[#30363d] text-white",
           className,
         )}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <Share2 className="h-3.5 w-3.5 text-[#00e676]" />
         <span>Share</span>
       </button>
 
       {isOpen && (
-        <div className="animate-in fade-in-80 zoom-in-95 absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-lg border border-[#30363d] bg-[#161b22] p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none">
-          {/* Section Header */}
-          <div className="px-2.5 py-1.5 text-[11px] font-semibold tracking-wider text-[#8b949e] uppercase">
-            Share Profile
-          </div>
-
+        <div className="animate-in fade-in-80 zoom-in-95 absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md border border-[#30363d] bg-[#161b22] p-1.5 shadow-lg ring-1 ring-black/5 focus:outline-none">
           {/* Copy Link */}
           <button
             onClick={handleCopyLink}
@@ -141,7 +135,7 @@ export function ShareButton({ username, name, className }: ShareButtonProps) {
                 onClick={handleNativeShare}
                 className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2.5 py-2 text-xs text-[#c9d1d9] transition-colors hover:bg-[#21262d] hover:text-white"
               >
-                <Share2 className="h-3.5 w-3.5 text-[#00e676]" />
+                <Share2 className="h-3.5 w-3.5 text-[#8b949e]" />
                 <span>Share via Device...</span>
               </button>
             )}
@@ -196,23 +190,6 @@ export function ShareButton({ username, name, className }: ShareButtonProps) {
             </div>
             <ExternalLink className="h-3 w-3 text-[#6e7681]" />
           </button>
-
-          <div className="my-1 h-px bg-[#30363d]" />
-
-          {/* Social Card Preview Tool Link */}
-          <a
-            href={`/og-preview?username=${username}`}
-            target="_blank"
-            rel="noreferrer"
-            className="flex w-full cursor-pointer items-center justify-between rounded-md px-2.5 py-2 text-xs text-[#c9d1d9] transition-colors hover:bg-[#21262d] hover:text-white"
-            onClick={() => setIsOpen(false)}
-          >
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-3.5 w-3.5 text-[#e3b341]" />
-              <span>Preview Card & Meta</span>
-            </div>
-            <ExternalLink className="h-3 w-3 text-[#6e7681]" />
-          </a>
         </div>
       )}
     </div>
