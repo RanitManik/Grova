@@ -62,8 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : `${displayName}'s daily habit & productivity profile on Grova. ${statsSummary}.`;
 
   const profileUrl = `${baseUrl}/${username}`;
-  const avatarUrl = user.image || `${baseUrl}/og.png`;
-  const fallbackOgUrl = `${baseUrl}/og.png`;
+  const ogImageUrl = `${baseUrl}/${username}/opengraph-image`;
 
   return {
     title: `${displayName} (@${username})`,
@@ -77,33 +76,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${displayName} (@${username}) — Grova`,
       description,
       siteName: "Grova",
-      images: user.image
-        ? [
-            {
-              url: user.image,
-              alt: `${displayName}'s Avatar`,
-            },
-            {
-              url: fallbackOgUrl,
-              width: 1200,
-              height: 630,
-              alt: `${displayName} on Grova`,
-            },
-          ]
-        : [
-            {
-              url: fallbackOgUrl,
-              width: 1200,
-              height: 630,
-              alt: `${displayName} on Grova`,
-            },
-          ],
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${displayName} (@${username}) on Grova`,
+        },
+      ],
     },
     twitter: {
-      card: user.image ? "summary" : "summary_large_image",
+      card: "summary_large_image",
       title: `${displayName} (@${username}) — Grova`,
       description,
-      images: [avatarUrl],
+      images: [ogImageUrl],
       creator: "@Grova",
     },
   };
