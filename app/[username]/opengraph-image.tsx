@@ -67,9 +67,9 @@ export default async function Image({
         alignItems: "flex-start",
         justifyContent: "space-between",
         backgroundColor: "#0d1117",
-        color: "#e6edf3",
+        color: "#ffffff",
         fontFamily: "sans-serif",
-        padding: "45px 55px",
+        padding: "45px 50px",
       }}
     >
       {/* Top Branding Bar */}
@@ -81,11 +81,11 @@ export default async function Image({
           width: "100%",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
           {/* Official Grova SVG Logo */}
           <svg
-            width="36"
-            height="36"
+            width="44"
+            height="44"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -111,8 +111,8 @@ export default async function Image({
           </svg>
           <span
             style={{
-              fontSize: "24px",
-              fontWeight: 700,
+              fontSize: "30px",
+              fontWeight: 800,
               letterSpacing: "-0.5px",
               color: "#ffffff",
             }}
@@ -123,57 +123,57 @@ export default async function Image({
 
         <div
           style={{
-            fontSize: "14px",
-            fontWeight: 600,
+            fontSize: "18px",
+            fontWeight: 700,
             color: "#00e676",
-            backgroundColor: "rgba(0, 230, 118, 0.08)",
-            border: "1px solid rgba(0, 230, 118, 0.25)",
-            borderRadius: "20px",
-            padding: "5px 16px",
+            backgroundColor: "rgba(0, 230, 118, 0.12)",
+            border: "1.5px solid rgba(0, 230, 118, 0.35)",
+            borderRadius: "4px",
+            padding: "6px 20px",
           }}
         >
           grova.5dev.in
         </div>
       </div>
 
-      {/* Middle Profile Header */}
+      {/* Middle Profile Header — Bold, High-Readability Hierarchy */}
       <div
         style={{
           display: "flex",
           alignItems: "flex-start",
-          gap: "28px",
+          gap: "32px",
           width: "100%",
           marginTop: "10px",
         }}
       >
-        {/* Bigger User Avatar with Border */}
+        {/* User Avatar with High-Contrast Border */}
         {user?.image ? (
           <img
             src={user.image}
             alt={displayName}
             style={{
-              width: "135px",
-              height: "135px",
-              borderRadius: "10px",
+              width: "200px",
+              height: "200px",
+              borderRadius: "14px",
               objectFit: "cover",
-              border: "1px solid #30363d",
+              border: "2px solid #30363d",
               backgroundColor: "#161b22",
             }}
           />
         ) : (
           <div
             style={{
-              width: "135px",
-              height: "135px",
+              width: "160px",
+              height: "160px",
               borderRadius: "14px",
               backgroundImage:
                 "linear-gradient(to bottom right, #059669, #22c55e)",
-              border: "1px solid #30363d",
+              border: "2px solid #30363d",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: "54px",
-              fontWeight: 700,
+              fontSize: "68px",
+              fontWeight: 800,
               color: "#ffffff",
             }}
           >
@@ -186,14 +186,15 @@ export default async function Image({
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "6px",
+            gap: "8px",
             flex: 1,
           }}
         >
+          {/* Line 1: Display Name */}
           <span
             style={{
-              fontSize: "36px",
-              fontWeight: 700,
+              fontSize: "48px",
+              fontWeight: 800,
               color: "#ffffff",
               letterSpacing: "-0.5px",
               lineHeight: "1.1",
@@ -202,69 +203,71 @@ export default async function Image({
             {displayName}
           </span>
 
-          {/* Profile Meta Details Bar: @username • Member since YYYY • X followers • Y following */}
+          {/* Line 2: @username • Member since YYYY • X followers • Y following */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "8px",
-              fontSize: "14px",
-              color: "#8b949e",
+              gap: "10px",
+              fontSize: "20px",
+              color: "#d0d7de",
+              fontWeight: 500,
             }}
           >
-            <span style={{ fontWeight: 600, color: "#00e676" }}>@{handle}</span>
-            <span>•</span>
+            <span style={{ fontWeight: 700, color: "#00e676" }}>@{handle}</span>
+            <span style={{ color: "#484f58" }}>•</span>
             <span>Member since {memberYear}</span>
-            <span>•</span>
+            <span style={{ color: "#484f58" }}>•</span>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "4px",
-                color: "#e6edf3",
+                gap: "6px",
+                color: "#ffffff",
               }}
             >
-              <strong style={{ fontWeight: 600 }}>{followersCount}</strong>
-              <span>followers</span>
+              <strong style={{ fontWeight: 800 }}>{followersCount}</strong>
+              <span style={{ color: "#d0d7de" }}>followers</span>
             </div>
-            <span>•</span>
+            <span style={{ color: "#484f58" }}>•</span>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "4px",
-                color: "#e6edf3",
+                gap: "6px",
+                color: "#ffffff",
               }}
             >
-              <strong style={{ fontWeight: 600 }}>{followingCount}</strong>
-              <span>following</span>
+              <strong style={{ fontWeight: 800 }}>{followingCount}</strong>
+              <span style={{ color: "#d0d7de" }}>following</span>
             </div>
           </div>
 
-          {/* Bio */}
+          {/* Line 3: Bio */}
           <p
             style={{
-              fontSize: "15px",
-              color: "#8b949e",
+              fontSize: "20px",
+              color: "#d0d7de",
               lineHeight: "1.4",
-              margin: "2px 0 0 0",
-              maxHeight: "42px",
+              margin: "4px 0 0 0",
+              maxHeight: "56px",
               overflow: "hidden",
             }}
           >
             {bioText}
           </p>
 
-          {/* Profile External Links Row (Website, Location, Company) */}
+          {/* Line 4: External Links Row (Website, Location, Company) */}
           {(websiteClean || user?.location || user?.company) && (
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "18px",
-                fontSize: "13px",
-                color: "#8b949e",
+                gap: "22px",
+                fontSize: "18px",
+                color: "#d0d7de",
                 marginTop: "6px",
+                fontWeight: 500,
               }}
             >
               {websiteClean && (
@@ -272,16 +275,16 @@ export default async function Image({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "6px",
+                    gap: "8px",
                   }}
                 >
                   <svg
-                    width="14"
-                    height="14"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#6e7681"
-                    strokeWidth="2"
+                    stroke="#9198a1"
+                    strokeWidth="2.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -297,16 +300,16 @@ export default async function Image({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "6px",
+                    gap: "8px",
                   }}
                 >
                   <svg
-                    width="14"
-                    height="14"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#6e7681"
-                    strokeWidth="2"
+                    stroke="#9198a1"
+                    strokeWidth="2.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -322,16 +325,16 @@ export default async function Image({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "6px",
+                    gap: "8px",
                   }}
                 >
                   <svg
-                    width="14"
-                    height="14"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#6e7681"
-                    strokeWidth="2"
+                    stroke="#9198a1"
+                    strokeWidth="2.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -351,7 +354,7 @@ export default async function Image({
         </div>
       </div>
 
-      {/* Bottom Metric Cards Grid */}
+      {/* Bottom Metric Cards Grid — Exactly matching profile page metrics */}
       <div
         style={{
           display: "flex",
@@ -383,16 +386,16 @@ export default async function Image({
           >
             <span
               style={{
-                fontSize: "13px",
-                fontWeight: 500,
+                fontSize: "16px",
+                fontWeight: 600,
                 color: "#8b949e",
               }}
             >
               Current Streak
             </span>
             <svg
-              width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#00e676"
@@ -414,7 +417,11 @@ export default async function Image({
             >
               {currentStreak}
             </span>
-            <span style={{ fontSize: "13px", color: "#8b949e" }}>Days</span>
+            <span
+              style={{ fontSize: "16px", fontWeight: 500, color: "#8b949e" }}
+            >
+              Days
+            </span>
           </div>
         </div>
 
@@ -441,16 +448,16 @@ export default async function Image({
           >
             <span
               style={{
-                fontSize: "13px",
-                fontWeight: 500,
+                fontSize: "16px",
+                fontWeight: 600,
                 color: "#8b949e",
               }}
             >
               Longest Streak
             </span>
             <svg
-              width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#6e7681"
@@ -473,7 +480,11 @@ export default async function Image({
             >
               {longestStreak}
             </span>
-            <span style={{ fontSize: "13px", color: "#8b949e" }}>Days</span>
+            <span
+              style={{ fontSize: "16px", fontWeight: 500, color: "#8b949e" }}
+            >
+              Days
+            </span>
           </div>
         </div>
 
@@ -500,16 +511,16 @@ export default async function Image({
           >
             <span
               style={{
-                fontSize: "13px",
-                fontWeight: 500,
+                fontSize: "16px",
+                fontWeight: 600,
                 color: "#8b949e",
               }}
             >
               Completion Rate
             </span>
             <svg
-              width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#6e7681"
@@ -555,16 +566,16 @@ export default async function Image({
           >
             <span
               style={{
-                fontSize: "13px",
-                fontWeight: 500,
+                fontSize: "16px",
+                fontWeight: 600,
                 color: "#8b949e",
               }}
             >
               Active Goals
             </span>
             <svg
-              width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#6e7681"
