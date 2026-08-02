@@ -26,14 +26,86 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = await params;
+  const baseUrl = process.env.NEXTAUTH_URL || "https://grova.5dev.in";
+
   const user = await db.user.findUnique({
     where: { username },
-    select: { name: true, bio: true },
+    select: {
+      name: true,
+      username: true,
+      bio: true,
+      image: true,
+      currentStreak: true,
+      longestStreak: true,
+      totalContributions: true,
+      _count: {
+        select: { goals: true, followers: true },
+      },
+    },
   });
-  if (!user) return { title: "User Not Found" };
+
+  if (!user) {
+    return {
+      title: "User Not Found | Grova",
+      description: "The requested user profile does not exist on Grova.",
+    };
+  }
+
+  const displayName = user.name || user.username || username;
+  const streakText = `🔥 ${user.currentStreak} Day Streak`;
+  const goalsText = `🎯 ${user._count.goals} Active Goals`;
+  const contribText = `⚡ ${user.totalContributions} Contributions`;
+  const statsSummary = [streakText, goalsText, contribText].join(" • ");
+
+  const description = user.bio
+    ? `${user.bio} — ${statsSummary}`
+    : `${displayName}'s daily habit & productivity profile on Grova. ${statsSummary}.`;
+
+  const profileUrl = `${baseUrl}/${username}`;
+  const avatarUrl = user.image || `${baseUrl}/og.png`;
+  const fallbackOgUrl = `${baseUrl}/og.png`;
+
   return {
-    title: `${user.name ?? username} (@${username})`,
-    description: user.bio ?? `View ${username}'s productivity profile on Grova`,
+    title: `${displayName} (@${username})`,
+    description,
+    alternates: {
+      canonical: profileUrl,
+    },
+    openGraph: {
+      type: "profile",
+      url: profileUrl,
+      title: `${displayName} (@${username}) — Grova`,
+      description,
+      siteName: "Grova",
+      images: user.image
+        ? [
+            {
+              url: user.image,
+              alt: `${displayName}'s Avatar`,
+            },
+            {
+              url: fallbackOgUrl,
+              width: 1200,
+              height: 630,
+              alt: `${displayName} on Grova`,
+            },
+          ]
+        : [
+            {
+              url: fallbackOgUrl,
+              width: 1200,
+              height: 630,
+              alt: `${displayName} on Grova`,
+            },
+          ],
+    },
+    twitter: {
+      card: user.image ? "summary" : "summary_large_image",
+      title: `${displayName} (@${username}) — Grova`,
+      description,
+      images: [avatarUrl],
+      creator: "@Grova",
+    },
   };
 }
 
