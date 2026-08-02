@@ -25,7 +25,7 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        <div className="w-full max-w-105">
+        <div className="animate-fade-in w-full max-w-105">
           {/* Back to home */}
           <Link
             href="/"

@@ -237,18 +237,24 @@ export function GoalForm({ onCancel }: GoalFormProps) {
 
         {/* Preview Pace */}
         {pace && (
-          <div className="rounded-md border border-[#30363d] bg-[#161b22] p-5 text-center">
-            <div className="mb-2 text-sm font-semibold text-white">
-              Daily Pace Required
-            </div>
-            <div className="mb-1 text-2xl font-bold text-white">
-              {pace.dailyTarget}{" "}
-              <span className="text-sm font-normal text-[#8b949e]">
-                {pace.unit} / day
+          <div className="flex items-center justify-between gap-3 rounded-md border border-[#30363d]/80 bg-[#161b22] px-3.5 py-2.5 text-xs">
+            <div className="flex shrink-0 items-center gap-1.5 whitespace-nowrap">
+              <span className="font-semibold text-[#c9d1d9]">Daily Pace</span>
+              <span className="text-[#8b949e]">
+                &middot; across {pace.totalDays} days
               </span>
             </div>
-            <div className="text-xs text-[#8b949e]">
-              across {pace.totalDays} days
+            <div className="flex min-w-0 items-center justify-end gap-1 font-medium text-[#e6edf3]">
+              <span className="shrink-0 text-sm font-bold text-[#3fb950]">
+                {pace.dailyTarget}
+              </span>
+              <span
+                className="min-w-0 truncate text-[#8b949e]"
+                title={pace.unit}
+              >
+                {pace.unit}
+              </span>
+              <span className="shrink-0 text-[#8b949e]">/ day</span>
             </div>
           </div>
         )}
