@@ -1,0 +1,15 @@
+# Auto-detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Force binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# Custom diffs
+*.json text
+*.md text
