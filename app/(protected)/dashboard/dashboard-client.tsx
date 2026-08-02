@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { format } from "date-fns";
 import { toast } from "sonner";
-import { CheckCircle2, Clock, SkipForward, Lock, Target } from "lucide-react";
+import { CheckCircle2, Clock, SkipForward, Target } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -90,7 +90,7 @@ export function DashboardClient({
   const [noteStatus, setNoteStatus] = useState<"idle" | "saving" | "saved">(
     "idle",
   );
-  const [dayLocked, setDayLocked] = useState(false);
+
   const [activeRow, setActiveRow] = useState<number>(0);
   const [weeksToRender, setWeeksToRender] = useState(19);
   const heatmapContainerRef = useRef<HTMLDivElement>(null);
@@ -105,7 +105,7 @@ export function DashboardClient({
   const toggleStatus = useCallback(
     async (idx: number) => {
       const entry = entries[idx];
-      if (dayLocked || !entry) return;
+      if (!entry) return;
 
       const newStatus: LogStatus =
         entry.status === "PENDING"
@@ -146,7 +146,7 @@ export function DashboardClient({
         toast.error("Failed to save — try again");
       }
     },
-    [dayLocked, entries, today],
+    [entries, today],
   );
 
   // Keyboard shortcuts: J/K to navigate, Space to toggle
@@ -169,15 +169,6 @@ export function DashboardClient({
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [activeRow, entries.length, toggleStatus]);
-
-  const lockDay = async () => {
-    if (completedCount === 0) {
-      toast.error("Complete at least one goal before locking the day.");
-      return;
-    }
-    setDayLocked(true);
-    toast.success("🔒 Day locked! Great work today.");
-  };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleNoteChange = (value: string) => {
@@ -483,21 +474,6 @@ export function DashboardClient({
               <span>{totalGoals - completedCount} REM</span>
             </div>
           </div>
-
-          {/* Lock Day Button Only */}
-          <button
-            onClick={lockDay}
-            disabled={dayLocked}
-            className={cn(
-              "flex w-full items-center justify-center gap-2 rounded-md border px-3 py-2 text-xs font-semibold transition-colors",
-              dayLocked
-                ? "cursor-not-allowed border-[#30363d] bg-[#21262d] text-[#8b949e] opacity-50"
-                : "border-[rgba(255,255,255,0.1)] bg-[#238636] text-white hover:bg-[#2ea043]",
-            )}
-          >
-            <Lock className="h-3.5 w-3.5" />
-            {dayLocked ? "Day Locked" : "Lock Day"}
-          </button>
 
           {/* Activity mini-heatmap */}
           <div className="rounded-md border border-[#30363d] bg-[#161b22] p-4">
