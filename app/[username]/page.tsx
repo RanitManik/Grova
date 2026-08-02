@@ -255,8 +255,8 @@ export default async function PublicProfilePage({ params }: Props) {
         </nav>
 
         {/* ── Profile Header Section ── */}
-        <div className="relative flex w-full flex-col items-start justify-between gap-6 pb-1 md:flex-row">
-          <div className="flex w-full flex-col items-start gap-5 sm:flex-row">
+        <div className="relative flex w-full flex-col items-start justify-between gap-6 pb-1 lg:flex-row">
+          <div className="flex w-full flex-col items-start gap-5 lg:flex-row">
             {/* User Avatar */}
             <div className="h-28 w-28 shrink-0 overflow-hidden rounded-md border border-[#30363d] bg-[#161b22] sm:h-32 sm:w-32">
               {user.image ? (
@@ -349,7 +349,7 @@ export default async function PublicProfilePage({ params }: Props) {
             {isOwnProfile ? (
               <Link
                 href="/settings"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#30363d]"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap text-[#c9d1d9] transition-colors hover:bg-[#30363d] hover:text-white"
               >
                 <span>Edit profile</span>
               </Link>
