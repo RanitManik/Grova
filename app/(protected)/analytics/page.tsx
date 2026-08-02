@@ -47,10 +47,10 @@ export default async function AnalyticsPage() {
   const allDays = eachDayOfInterval({ start: thirtyDaysAgo, end: today });
   const chartData = allDays.map((day) => {
     const dateStr = format(day, "yyyy-MM-dd");
-    const dayLogs = logs.filter(
-      (l) => format(l.date, "yyyy-MM-dd") === dateStr,
+    const dayLogs = (logs as Array<{ date: Date; status: string }>).filter(
+      (l: { date: Date; status: string }) => format(l.date, "yyyy-MM-dd") === dateStr,
     );
-    const completed = dayLogs.filter((l) => l.status === "COMPLETED").length;
+    const completed = dayLogs.filter((l: { status: string }) => l.status === "COMPLETED").length;
     const total = dayLogs.length;
     return {
       date: format(day, "MMM d"),
