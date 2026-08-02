@@ -41,27 +41,29 @@ export const metadata: Metadata = {
   applicationName: "Grova",
   category: "productivity",
   alternates: {
-    canonical: "./",
+    canonical: baseUrl,
   },
   icons: {
     icon: [
-      { url: "/logo.svg", type: "image/svg+xml" },
-      { url: "/icon.png", type: "image/png", sizes: "32x32" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: `${baseUrl}/logo.svg`, type: "image/svg+xml" },
+      { url: `${baseUrl}/icon.png`, type: "image/png", sizes: "32x32" },
+      { url: `${baseUrl}/favicon.ico`, sizes: "any" },
     ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: `${baseUrl}/apple-icon.png`, sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: baseUrl,
+    url: `${baseUrl}/`,
     siteName: "Grova",
     title: "Grova — Goal Tracking & Habit Building SaaS",
     description:
       "Transform long-term goals into visual streaks, daily consistency heatmaps, and community accountability.",
     images: [
       {
-        url: "/og.png",
+        url: `${baseUrl}/og.png`,
         width: 1200,
         height: 630,
         alt: "Grova — Goal Tracking & Habit Building SaaS",
@@ -73,7 +75,7 @@ export const metadata: Metadata = {
     title: "Grova — Goal Tracking & Habit Building SaaS",
     description:
       "Transform long-term goals into visual streaks, daily consistency heatmaps, and community accountability.",
-    images: ["/og.png"],
+    images: [`${baseUrl}/og.png`],
     creator: "@RanitManik",
   },
   robots: {
