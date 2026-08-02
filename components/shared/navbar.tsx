@@ -37,16 +37,17 @@ const navLinks = [
 ];
 
 const landingLinks = [
-  { href: "#home", label: "Home", icon: Globe },
-  { href: "#features", label: "Features", icon: Target },
-  { href: "#benefits", label: "Benefits", icon: Zap },
-  { href: "#testimonials", label: "Testimonials", icon: Users },
-  { href: "#pricing", label: "Pricing", icon: DollarSign },
-  { href: "#faq", label: "FAQ", icon: HelpCircle },
+  { href: "/", label: "Home", icon: Globe },
+  { href: "/#features", label: "Features", icon: Target },
+  { href: "/#benefits", label: "Benefits", icon: Zap },
+  { href: "/#testimonials", label: "Testimonials", icon: Users },
+  { href: "/#pricing", label: "Pricing", icon: DollarSign },
+  { href: "/#faq", label: "FAQ", icon: HelpCircle },
 ];
 
 export function Navbar({ user }: NavProps) {
   const pathname = usePathname();
+  const isPublicPage = ["/", "/privacy", "/terms"].includes(pathname);
   const [timeInfo, setTimeInfo] = useState<UTCTimeInfo | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,13 +56,15 @@ export function Navbar({ user }: NavProps) {
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
+    if (isPublicPage) return;
+
     const updateTimer = () => {
       setTimeInfo(getUTCTimeInfo());
     };
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isPublicPage]);
 
   // Handle click outside for dropdown
   useEffect(() => {
@@ -99,7 +102,7 @@ export function Navbar({ user }: NavProps) {
           )}
 
           {/* Timezone Indicator - Day, Live Time & Countdown */}
-          {pathname !== "/" && timeInfo && (
+          {!isPublicPage && timeInfo && (
             <div className="hidden items-center gap-2 text-xs text-[#8b949e] lg:flex">
               <Globe className="h-3.5 w-3.5 text-[#8b949e]" />
               <span className="font-semibold text-[#c9d1d9]">
@@ -119,10 +122,10 @@ export function Navbar({ user }: NavProps) {
 
         {/* Center Nav */}
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex">
-          {(pathname === "/" ? landingLinks : navLinks).map(
+          {(isPublicPage ? landingLinks : navLinks).map(
             ({ href, label, icon: Icon }) => {
-              const active = pathname !== "/" && pathname.startsWith(href);
-              if (pathname === "/") {
+              const active = !isPublicPage && pathname.startsWith(href);
+              if (isPublicPage) {
                 return (
                   <Link
                     key={href}
@@ -160,7 +163,7 @@ export function Navbar({ user }: NavProps) {
         {/* Right Side */}
         <div className="flex items-center gap-3">
           {/* UTC Mobile Badge */}
-          {pathname !== "/" && timeInfo?.formatted && (
+          {!isPublicPage && timeInfo?.formatted && (
             <div className="flex items-center font-mono text-xs whitespace-nowrap text-[#8b949e] tabular-nums lg:hidden">
               {timeInfo.formatted}
             </div>
@@ -289,18 +292,33 @@ export function Navbar({ user }: NavProps) {
       {isMobileMenuOpen && (
         <div className="absolute top-14 left-0 z-40 w-full border-b border-[#30363d] bg-[#0d1117] px-4 py-4 shadow-lg shadow-black/40 md:hidden">
           <nav className="flex flex-col gap-4">
-            {(pathname === "/" ? landingLinks : navLinks).map(
-              ({ href, label, icon: Icon }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 text-sm font-medium text-[#c9d1d9] transition-colors hover:text-white"
-                >
-                  <Icon className="h-4 w-4" />
-                  {label}
-                </Link>
-              ),
+            {(isPublicPage ? landingLinks : navLinks).map(
+              ({ href, label, icon: Icon }) => {
+                if (isPublicPage) {
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center gap-3 text-sm font-medium text-[#c9d1d9] transition-colors hover:text-white"
+                    >
+                      <Icon className="h-4 w-4" />
+                      {label}
+                    </Link>
+                  );
+                }
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-3 text-sm font-medium text-[#c9d1d9] transition-colors hover:text-white"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </Link>
+                );
+              },
             )}
           </nav>
         </div>

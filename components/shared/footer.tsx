@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Zap, Globe } from "lucide-react";
+import { Zap, Globe, Mail } from "lucide-react";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -51,7 +51,7 @@ export function Footer() {
                 href="https://github.com/RanitManik/Grova"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e]"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e] hover:text-white"
                 aria-label="GitHub Repository"
               >
                 <GithubIcon className="h-4 w-4" />
@@ -60,16 +60,23 @@ export function Footer() {
                 href="https://www.linkedin.com/in/ranit-manik/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e]"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e] hover:text-white"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedinIcon className="h-4 w-4" />
               </a>
               <a
+                href="mailto:grova@5dev.in"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e] hover:text-white"
+                aria-label="Email Support"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+              <a
                 href="https://me.5dev.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e]"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] transition-all hover:border-[#8b949e] hover:text-white"
                 aria-label="Creator Website"
               >
                 <Globe className="h-4 w-4" />
@@ -80,7 +87,7 @@ export function Footer() {
           {/* Column 2: Navigation (2 cols) */}
           <div className="lg:col-span-2">
             <h3 className="text-sm font-bold text-white">Navigation</h3>
-            <ul className="mt-4 flex flex-col gap-2.5 text-xs text-[#8b949e]">
+            <ul className="mt-4 flex flex-col gap-3.5 text-xs text-[#8b949e]">
               <li>
                 <a href="#home" className="underline-offset-4 hover:underline">
                   Home
@@ -124,7 +131,7 @@ export function Footer() {
           {/* Column 3: Product (2 cols) */}
           <div className="lg:col-span-2">
             <h3 className="text-sm font-bold text-white">Product</h3>
-            <ul className="mt-4 flex flex-col gap-2.5 text-xs text-[#8b949e]">
+            <ul className="mt-4 flex flex-col gap-3.5 text-xs text-[#8b949e]">
               <li>
                 <a
                   href="#features"
@@ -170,7 +177,7 @@ export function Footer() {
             <h3 className="text-sm font-bold text-white">
               Legal & Open Source
             </h3>
-            <ul className="mt-4 flex flex-col gap-2.5 text-xs text-[#8b949e]">
+            <ul className="mt-4 flex flex-col gap-3.5 text-xs text-[#8b949e]">
               <li>
                 <a
                   href="https://github.com/RanitManik/Grova"
@@ -202,14 +209,20 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <span className="cursor-pointer underline-offset-4 hover:underline">
+                <Link
+                  href="/privacy"
+                  className="underline-offset-4 hover:underline"
+                >
                   Privacy Policy
-                </span>
+                </Link>
               </li>
               <li>
-                <span className="cursor-pointer underline-offset-4 hover:underline">
+                <Link
+                  href="/terms"
+                  className="underline-offset-4 hover:underline"
+                >
                   Terms of Service
-                </span>
+                </Link>
               </li>
             </ul>
           </div>
