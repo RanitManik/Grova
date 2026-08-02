@@ -63,11 +63,17 @@ export default async function DashboardPage() {
   if (!user) redirect("/login");
 
   // Calculate daily progress
-  const completedGoals = (todayLogs as Array<{ dailyLogs: Array<{ status: string }> }>).filter(
-    (g: { dailyLogs: Array<{ status: string }> }) => g.dailyLogs[0]?.status === "COMPLETED",
+  const completedGoals = (
+    todayLogs as Array<{ dailyLogs: Array<{ status: string }> }>
+  ).filter(
+    (g: { dailyLogs: Array<{ status: string }> }) =>
+      g.dailyLogs[0]?.status === "COMPLETED",
   ).length;
-  const skippedGoals = (todayLogs as Array<{ dailyLogs: Array<{ status: string }> }>).filter(
-    (g: { dailyLogs: Array<{ status: string }> }) => g.dailyLogs[0]?.status === "SKIPPED",
+  const skippedGoals = (
+    todayLogs as Array<{ dailyLogs: Array<{ status: string }> }>
+  ).filter(
+    (g: { dailyLogs: Array<{ status: string }> }) =>
+      g.dailyLogs[0]?.status === "SKIPPED",
   ).length;
   const progressPercent =
     todayLogs.length > 0

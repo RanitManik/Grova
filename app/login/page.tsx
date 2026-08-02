@@ -3,18 +3,73 @@ import { auth, signIn } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { GrovaLogo } from "@/components/shared/logo";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Sign In — Grova",
   description: "Sign in to Grova to track your goals and build streaks.",
 };
 
-export default async function LoginPage() {
+function getAuthErrorMessage(errorCode: string): {
+  title: string;
+  message: string;
+} {
+  switch (errorCode) {
+    case "OAuthAccountNotLinked":
+      return {
+        title: "Account Already Exists",
+        message:
+          "To confirm your identity, please sign in with the provider (GitHub or Google) you originally used for this email address.",
+      };
+    case "OAuthSignin":
+    case "OAuthCallback":
+    case "OAuthCreateAccount":
+    case "Callback":
+      return {
+        title: "Provider Sign-In Failed",
+        message:
+          "An error occurred while communicating with the authentication provider. Please try signing in again.",
+      };
+    case "AccessDenied":
+      return {
+        title: "Access Denied",
+        message: "You do not have permission to sign in.",
+      };
+    case "SessionRequired":
+      return {
+        title: "Sign-In Required",
+        message: "Please sign in to access your account.",
+      };
+    case "Configuration":
+      return {
+        title: "Server Configuration Error",
+        message:
+          "There is a problem with the server authentication configuration.",
+      };
+    default:
+      return {
+        title: "Authentication Error",
+        message:
+          "An unexpected error occurred while signing in. Please try again.",
+      };
+  }
+}
+
+interface LoginPageProps {
+  searchParams: Promise<{
+    error?: string;
+  }>;
+}
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
   const session = await auth();
   if (session?.user?.id) {
     redirect("/dashboard");
   }
+
+  const resolvedSearchParams = await searchParams;
+  const error = resolvedSearchParams?.error;
+  const errorInfo = error ? getAuthErrorMessage(error) : null;
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#0d1117] font-sans">
@@ -51,8 +106,23 @@ export default async function LoginPage() {
             Sign in to track goals and show your growth publicly.
           </p>
 
+          {/* Error Banner */}
+          {errorInfo && (
+            <div className="animate-fade-in mt-6 flex items-start gap-3 rounded-md border border-[#f85149]/40 bg-[#f85149]/10 p-3.5 text-sm">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#ff7b72]" />
+              <div className="flex-1">
+                <h3 className="leading-none font-semibold text-[#ff7b72]">
+                  {errorInfo.title}
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-[#c9d1d9]">
+                  {errorInfo.message}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Auth buttons */}
-          <div className="mt-8 flex flex-col gap-2.5">
+          <div className="mt-6 flex flex-col gap-2.5">
             <form
               action={async () => {
                 "use server";
