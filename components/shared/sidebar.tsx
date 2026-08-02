@@ -106,12 +106,9 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
       <header className="sticky top-0 z-40 flex h-12 items-center justify-between border-b border-[#30363d] bg-[#0d1117]/95 backdrop-blur-sm md:hidden">
         <Link
           href="/dashboard"
-          className="flex h-full flex-1 items-center gap-2 px-3.5 transition-colors hover:bg-[#21262d]/60"
+          className="flex h-full flex-1 items-center px-3.5 transition-colors hover:bg-[#21262d]/60"
         >
-          <GrovaLogo className="h-5 w-5" />
-          <span className="text-sm font-bold tracking-tight text-white">
-            Grova
-          </span>
+          <GrovaLogo showText iconClassName="h-5 w-5" textClassName="text-sm" />
         </Link>
 
         <div className="flex items-center gap-2.5 pr-3.5">
@@ -147,12 +144,13 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
         <div className="flex h-12 items-center justify-between border-b border-[#30363d]">
           <Link
             href="/dashboard"
-            className="flex h-full flex-1 items-center gap-2 px-3.5 transition-colors hover:bg-[#21262d]/60"
+            className="flex h-full flex-1 items-center px-3.5 transition-colors hover:bg-[#21262d]/60"
           >
-            <GrovaLogo className="h-5 w-5" />
-            <span className="text-sm font-bold tracking-tight text-white">
-              Grova
-            </span>
+            <GrovaLogo
+              showText
+              iconClassName="h-5 w-5"
+              textClassName="text-sm text-white"
+            />
           </Link>
           <div className="flex items-center pr-3.5">
             <button
@@ -241,12 +239,13 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
         {/* Compact Brand Header */}
         <Link
           href="/dashboard"
-          className="flex h-12 items-center gap-2.5 border-b border-[#30363d]/60 px-4 transition-colors hover:bg-[#21262d]/60"
+          className="flex h-12 items-center border-b border-[#30363d]/60 px-4 transition-colors hover:bg-[#21262d]/60"
         >
-          <GrovaLogo className="h-6 w-6" />
-          <span className="text-base font-extrabold tracking-tight text-white">
-            Grova
-          </span>
+          <GrovaLogo
+            showText
+            iconClassName="h-6 w-6"
+            textClassName="text-base text-white"
+          />
         </Link>
 
         {/* Navigation Section */}

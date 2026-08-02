@@ -1,15 +1,31 @@
 import React, { useId } from "react";
+import { cn } from "@/lib/utils";
 
-export function GrovaLogo({ className = "h-7 w-7" }: { className?: string }) {
+export interface GrovaLogoProps {
+  showText?: boolean;
+  className?: string;
+  iconClassName?: string;
+  textClassName?: string;
+}
+
+export function GrovaLogo({
+  showText = false,
+  className,
+  iconClassName = "h-7 w-7",
+  textClassName = "",
+}: GrovaLogoProps) {
   const id = useId();
   const gradientId = `grova-grad-${id.replace(/:/g, "")}`;
 
-  return (
+  const svgIcon = (
     <svg
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={cn(
+        "shrink-0",
+        className && !showText ? className : iconClassName,
+      )}
     >
       <rect width="32" height="32" rx="6" fill={`url(#${gradientId})`} />
       <path
@@ -30,5 +46,23 @@ export function GrovaLogo({ className = "h-7 w-7" }: { className?: string }) {
         </linearGradient>
       </defs>
     </svg>
+  );
+
+  if (!showText) {
+    return svgIcon;
+  }
+
+  return (
+    <div className={cn("inline-flex items-center gap-2", className)}>
+      {svgIcon}
+      <span
+        className={cn(
+          "text-base font-medium tracking-tight text-[#e6edf3]",
+          textClassName,
+        )}
+      >
+        Grova
+      </span>
+    </div>
   );
 }

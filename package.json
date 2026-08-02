@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "dev": "next dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "format:tailwind": "npx -y @laststance/tailwind-suggest-canonical-classes \"app/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\"",
+    "lint": "eslint",
+    "start": "next start",
     "type-check": "tsc --noEmit",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "validate": "npm run format:tailwind && npm run format && npm run lint && npm run type-check && npm run build"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",

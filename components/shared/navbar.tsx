@@ -63,18 +63,15 @@ export function Navbar({ user }: NavProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#30363d] bg-[#0d1117]">
+    <header className="sticky top-0 z-50 w-full bg-[#0d1117]">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Logo & UTC Badge */}
         <div className="flex items-center gap-5">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 font-bold tracking-tight text-white transition-opacity hover:opacity-90"
+            className="transition-opacity hover:opacity-90"
           >
-            <GrovaLogo className="h-7 w-7" />
-            <span className="text-base font-semibold text-[#e6edf3]">
-              Grova
-            </span>
+            <GrovaLogo showText iconClassName="h-7 w-7" />
           </Link>
 
           {pathname !== "/" && (
@@ -96,10 +93,21 @@ export function Navbar({ user }: NavProps) {
         </div>
 
         {/* Center Nav */}
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {(pathname === "/" ? landingLinks : navLinks).map(
             ({ href, label, icon: Icon }) => {
               const active = pathname !== "/" && pathname.startsWith(href);
+              if (pathname === "/") {
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="text-xs font-semibold text-[#8b949e] transition-colors hover:text-white"
+                  >
+                    {label}
+                  </Link>
+                );
+              }
               return (
                 <Link
                   key={href}
@@ -135,16 +143,13 @@ export function Navbar({ user }: NavProps) {
 
           {user ? (
             <>
-              {/* Streak Badge */}
-              <div className="flex items-center gap-1.5 rounded-md border border-[#21262d] bg-[#161b22] px-2.5 py-1 text-xs font-medium text-[#e6edf3]">
-                <span className="text-sm">🔥</span>
-                <span className="font-semibold text-[#3fb950]">
-                  {user.currentStreak ?? 0}
-                </span>
-                <span className="hidden text-[#8b949e] sm:inline">
-                  d streak
-                </span>
-              </div>
+              {/* Dashboard Button */}
+              <Link
+                href="/dashboard"
+                className="rounded-md border border-[#30363d] bg-[#21262d] px-3 py-1.5 text-xs font-semibold text-[#e6edf3] transition-colors hover:bg-[#30363d] hover:text-white"
+              >
+                Dashboard
+              </Link>
 
               {/* Profile Dropdown */}
               <div className="relative" ref={dropdownRef}>
@@ -219,18 +224,12 @@ export function Navbar({ user }: NavProps) {
               </div>
             </>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               <Link
                 href="/login"
-                className="px-3 py-1.5 text-xs font-medium text-[#c9d1d9] transition-colors hover:text-white"
+                className="rounded-md bg-[#238636] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#2ea043]"
               >
-                Sign in
-              </Link>
-              <Link
-                href="/login"
-                className="rounded-md bg-[#238636] px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#2ea043]"
-              >
-                Get Started
+                Sign In
               </Link>
             </div>
           )}

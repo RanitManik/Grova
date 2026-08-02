@@ -35,55 +35,48 @@ export default async function LandingPage() {
       {/* ── Hero ── */}
       <section
         id="home"
-        className="mx-auto max-w-7xl px-4 pt-24 pb-16 text-center sm:px-6"
+        className="mx-auto max-w-7xl px-4 pt-20 pb-16 text-center sm:px-6"
       >
-        {/* Live badge */}
-        <div className="border-primary/30 bg-primary/10 text-primary-glow mb-6 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium">
-          <span className="dot-live" />
-          Your next 6 months start today
+        {/* Top Pill Badge */}
+        <div className="mb-6 inline-flex items-center rounded-full bg-[#3fb950] px-4 py-1.25 text-xs font-medium tracking-wider text-[#0d1117] uppercase">
+          PUBLIC GOAL & STREAK TRACKER
         </div>
 
-        <h1 className="text-foreground mx-auto max-w-3xl text-5xl leading-tight font-bold tracking-tight sm:text-6xl lg:text-7xl">
-          Build streaks. <span className="text-primary-glow">Ship goals.</span>
+        {/* Hero Title */}
+        <h1 className="mx-auto max-w-4xl text-4xl leading-[1.12] font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Build streaks. <span className="text-[#3fb950]">Ship goals.</span>
           <br />
           Show your growth.
         </h1>
 
-        <p className="text-muted-foreground mx-auto mt-6 max-w-xl text-lg">
+        {/* Hero Subtitle */}
+        <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-[#8b949e] sm:text-lg">
           Grova is a public productivity tracker where your progress is your
-          reputation. Set ambitious goals, log daily, and let the world see your
-          consistency.
+          reputation. <br className="hidden lg:block" /> Set ambitious goals,
+          log daily, and let the world see your consistency.
         </p>
 
-        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <Link href="/login">
-            <Button variant="default" size="lg" className="btn-glow">
-              Start your journey
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/explore">
-            <Button variant="outline" size="lg">
-              <Users className="h-4 w-4" />
-              Explore community
-            </Button>
+        {/* Hero CTA Button */}
+        <div className="mt-8 flex justify-center">
+          <Link href={loggedInUser ? "/dashboard" : "/login"}>
+            <button className="flex cursor-pointer items-center rounded-md bg-[#3fb950] px-6 py-2 text-sm text-[#0d1117] transition-all hover:scale-[1.02] hover:bg-[#3fb950]/90 active:scale-[0.98]">
+              {loggedInUser ? "Open Dashboard" : "Start your journey"}
+            </button>
           </Link>
         </div>
 
         {/* Stats */}
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-8">
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-8 border-t border-[#30363d]/60 pt-12">
           {[
             { value: "10K+", label: "Goals Created" },
             { value: "94%", label: "Avg Completion" },
             { value: "∞", label: "Streaks Possible" },
           ].map((stat) => (
             <div key={stat.label}>
-              <div className="text-primary-glow text-3xl font-bold">
+              <div className="text-3xl font-extrabold text-[#3fb950]">
                 {stat.value}
               </div>
-              <div className="text-muted-foreground mt-1 text-sm">
-                {stat.label}
-              </div>
+              <div className="mt-1 text-sm text-[#8b949e]">{stat.label}</div>
             </div>
           ))}
         </div>

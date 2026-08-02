@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { GrovaLogo } from "@/components/shared/logo";
 import { ArrowRight, ArrowLeft } from "lucide-react";
@@ -9,19 +10,24 @@ export const metadata: Metadata = {
   description: "Sign in to Grova to track your goals and build streaks.",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await auth();
+  if (session?.user?.id) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-[#0d1117] font-sans">
       {/* ══ LEFT — Form ══════════════════════════════════════════════ */}
       <div className="relative flex w-full flex-col items-center justify-center px-8 py-16 lg:w-3/5 lg:shrink-0">
         {/* Logo — top left */}
         <div className="absolute top-8 left-8">
-          <Link
-            href="/"
-            className="flex items-center gap-2 transition-opacity hover:opacity-80"
-          >
-            <GrovaLogo className="h-7 w-7" />
-            <span className="text-sm font-semibold text-[#e6edf3]">Grova</span>
+          <Link href="/" className="transition-opacity hover:opacity-80">
+            <GrovaLogo
+              showText
+              iconClassName="h-7 w-7"
+              textClassName="text-sm"
+            />
           </Link>
         </div>
 
@@ -122,8 +128,9 @@ export default function LoginPage() {
           {/* Privacy note */}
           <p className="mt-4 text-center text-[11px] leading-relaxed text-[#6e7681]">
             Your profile and goals will be{" "}
-            <span className="text-[#8b949e]">publicly visible</span> — your
-            consistency is your reputation.
+            <span className="text-[#8b949e]">publicly visible.</span>
+            <br />
+            your consistency is your reputation.
           </p>
         </div>
       </div>
