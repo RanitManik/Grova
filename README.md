@@ -1,10 +1,10 @@
 <div align="center">
 
-  <img src="logo.svg" alt="Grova Logo" width="120" height="120" />
+  <img src="logo.svg" alt="Grova Logo" width="70" height="70" />
 
 # Grova
 
-**GitHub-Style Goal Tracking & Daily Habit Building SaaS Platform**
+**Goal Tracking & Daily Habit Building SaaS Platform**
 
 _Transform your long-term goals into visual streaks, daily consistency heatmaps, and community accountability._
 
@@ -38,15 +38,11 @@ _Transform your long-term goals into visual streaks, daily consistency heatmaps,
 - [Community & Contributing](#-community--contributing)
 - [License](#-license)
 
----
-
 ## 🌟 Overview
 
-**Grova** is a modern, high-performance web application designed to help individuals and teams track their habits, reach ambitious targets, and maintain daily accountability. Taking inspiration from GitHub's contribution activity graph, Grova turns progress into interactive color-coded heatmaps, streak tracking algorithms, and real-time social feeds.
+**Grova** is a modern, high-performance web application designed to help individuals and teams track their habits, reach ambitious targets, and maintain daily accountability. Taking inspiration from activity contribution graphs, Grova turns progress into interactive color-coded heatmaps, streak tracking algorithms, and real-time social feeds.
 
 Whether you're tracking coding hours, fitness routines, reading targets, or financial savings, Grova provides an intuitive dashboard with rich visual feedback.
-
----
 
 ## ✨ Key Features
 
@@ -62,8 +58,6 @@ Whether you're tracking coding hours, fitness routines, reading targets, or fina
 - 🔔 **Intelligent Notifications**: Receive alerts for streak milestones, goals at risk of falling behind, and friend achievements.
 - 🌙 **Modern Dark/Light UI**: Built with Radix UI components, smooth Framer Motion micro-interactions, Tailwind CSS v4, and Lucide icons.
 - 🔒 **Enterprise-Grade Auth**: NextAuth.js (Auth.js v5) integration supporting OAuth providers and secure session state.
-
----
 
 ## 🛠️ Tech Stack
 
@@ -99,8 +93,6 @@ Whether you're tracking coding hours, fitness routines, reading targets, or fina
 - **Linter**: [ESLint v9](https://eslint.org/)
 - **Commit Hooks**: [Husky v9](https://typicode.github.io/husky/) & [lint-staged](https://github.com/okonet/lint-staged)
 - **Commit Validation**: [Commitlint](https://commitlint.js.org/) (Conventional Commits)
-
----
 
 ## 📐 Database Schema & Architecture
 
@@ -150,8 +142,6 @@ erDiagram
     }
 ```
 
----
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -161,8 +151,6 @@ Ensure you have the following installed on your local development machine:
 - **Node.js**: `v20.x` or higher
 - **pnpm**: `v9.x` or `v10.x` (`npm i -g pnpm`)
 - **PostgreSQL**: A running instance or a free [Neon PostgreSQL](https://neon.tech) database URL.
-
----
 
 ### Installation
 
@@ -199,8 +187,6 @@ Ensure you have the following installed on your local development machine:
    ```
    Open [http://localhost:3000](http://localhost:3000) to view Grova running locally.
 
----
-
 ### Environment Variables
 
 | Variable             | Description                                              | Example / Default                                               |
@@ -212,8 +198,6 @@ Ensure you have the following installed on your local development machine:
 | `AUTH_GITHUB_SECRET` | GitHub OAuth App Client Secret                           | Obtained from GitHub Developer Settings                         |
 | `AUTH_GOOGLE_ID`     | Google OAuth App Client ID                               | Obtained from Google Cloud Console                              |
 | `AUTH_GOOGLE_SECRET` | Google OAuth App Client Secret                           | Obtained from Google Cloud Console                              |
-
----
 
 ## 📋 Available Scripts
 
@@ -234,8 +218,6 @@ In the project root, you can run the following scripts using `pnpm`:
 | `pnpm db:migrate`   | Runs database migrations in development mode (`prisma migrate dev`).                |
 | `pnpm db:studio`    | Launches Prisma Studio GUI at `http://localhost:5555`.                              |
 
----
-
 ## 🔒 Commit Hooks & Code Quality
 
 Grova uses **Husky**, **Commitlint**, and **lint-staged** to enforce code standard consistency on every commit:
@@ -251,8 +233,6 @@ git commit -m "feat(analytics): add monthly completion breakdown chart"
 
 If a commit message does not comply with the convention, the commit will be rejected with actionable feedback.
 
----
-
 ## 🚀 Deployment Guide
 
 ### Deploying on Vercel
@@ -266,8 +246,6 @@ The easiest and recommended way to deploy Grova is using [Vercel](https://vercel
 5. Add all required **Environment Variables** (`DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, OAuth keys) in Vercel settings.
 6. Click **Deploy**.
 
----
-
 ### Neon PostgreSQL Database Setup
 
 1. Create a free account on [Neon.tech](https://neon.tech).
@@ -279,8 +257,6 @@ The easiest and recommended way to deploy Grova is using [Vercel](https://vercel
    pnpm db:push
    ```
 
----
-
 ## 👥 Community & Contributing
 
 We welcome and appreciate contributions of all kinds! Please read our community guidelines before opening an issue or pull request:
@@ -289,8 +265,6 @@ We welcome and appreciate contributions of all kinds! Please read our community 
 - [Code of Conduct](CODE_OF_CONDUCT.md) — Community behavior standards and pledge.
 - [Security Policy](.github/SECURITY.md) — Guidelines for reporting security vulnerabilities.
 - [Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md) — Checklist for submitting PRs.
-
----
 
 ## 📄 License
 
