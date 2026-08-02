@@ -140,7 +140,7 @@ export function DashboardClient({
         });
 
         if (newStatus === "COMPLETED") {
-          toast.success(`✅ ${entry.title} completed!`);
+          toast.success(`${entry.title} completed!`);
         }
       } catch {
         toast.error("Failed to save — try again");

@@ -125,7 +125,7 @@ export function GoalForm({ onCancel }: GoalFormProps) {
 
       if (!res.ok) throw new Error("Failed to create goal");
 
-      toast.success("🎯 Goal created! Let's go!");
+      toast.success("Goal created! Let's go!");
       router.refresh();
       onCancel();
     } catch {

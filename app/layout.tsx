@@ -130,7 +130,7 @@ export default function RootLayout({
       >
         <NextTopLoader color="#3fb950" showSpinner={false} />
         {children}
-        <Toaster theme="dark" position="bottom-right" />
+        <Toaster richColors theme="dark" position="bottom-right" />
       </body>
     </html>
   );

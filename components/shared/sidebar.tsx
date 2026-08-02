@@ -104,24 +104,28 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3]">
       {/* ── Mobile Top Header ── */}
-      <header className="sticky top-0 z-40 flex h-12 items-center justify-between border-b border-[#30363d] bg-[#0d1117]/95 backdrop-blur-sm md:hidden">
+      <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-[#30363d] bg-[#0d1117]/95 backdrop-blur-sm md:hidden">
         <Link
-          href="/dashboard"
-          className="flex h-full flex-1 items-center px-3.5 transition-colors hover:bg-[#21262d]/60"
+          href="/"
+          className="flex h-full flex-1 items-center px-4 transition-colors hover:bg-[#21262d]/60"
         >
-          <GrovaLogo showText iconClassName="h-5 w-5" textClassName="text-sm" />
+          <GrovaLogo
+            showText
+            iconClassName="h-6 w-6"
+            textClassName="text-base"
+          />
         </Link>
 
-        <div className="flex items-center gap-2.5 pr-3.5">
+        <div className="flex items-center gap-3 pr-4">
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             aria-label="Toggle menu"
-            className="rounded-md p-1 text-[#8b949e] hover:bg-[#21262d] hover:text-white focus:outline-none"
+            className="rounded-md p-1.5 text-[#8b949e] hover:bg-[#21262d] hover:text-white focus:outline-none"
           >
             {isMobileOpen ? (
-              <X className="h-4.5 w-4.5" />
+              <X className="h-5 w-5" />
             ) : (
-              <Menu className="h-4.5 w-4.5" />
+              <Menu className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -142,23 +146,23 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
           isMobileOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="flex h-12 items-center justify-between border-b border-[#30363d]">
+        <div className="flex h-14 items-center justify-between border-b border-[#30363d]">
           <Link
             href="/dashboard"
-            className="flex h-full flex-1 items-center px-3.5 transition-colors hover:bg-[#21262d]/60"
+            className="flex h-full flex-1 items-center px-4 transition-colors hover:bg-[#21262d]/60"
           >
             <GrovaLogo
               showText
-              iconClassName="h-5 w-5"
-              textClassName="text-sm text-white"
+              iconClassName="h-6 w-6"
+              textClassName="text-base text-white"
             />
           </Link>
-          <div className="flex items-center pr-3.5">
+          <div className="flex items-center pr-4">
             <button
               onClick={() => setIsMobileOpen(false)}
-              className="rounded-md p-1 text-[#8b949e] hover:text-white"
+              className="rounded-md p-1.5 text-[#8b949e] hover:text-white"
             >
-              <X className="h-4.5 w-4.5" />
+              <X className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -264,7 +268,7 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
       <aside className="hidden md:fixed md:inset-y-0 md:left-0 md:z-50 md:flex md:w-64 md:flex-col md:border-r md:border-[#30363d] md:bg-[#0d1117]">
         {/* Compact Brand Header */}
         <Link
-          href="/dashboard"
+          href="/"
           className="flex h-12 items-center border-b border-[#30363d]/60 px-4 transition-colors hover:bg-[#21262d]/60"
         >
           <GrovaLogo

@@ -4,7 +4,19 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { LayoutDashboard, Target, BarChart2, Users, Globe } from "lucide-react";
+import {
+  LayoutDashboard,
+  Target,
+  BarChart2,
+  Users,
+  Globe,
+  Zap,
+  DollarSign,
+  HelpCircle,
+  Heart,
+  Menu,
+  X,
+} from "lucide-react";
 import { cn, getUTCTimeInfo, type UTCTimeInfo } from "@/lib/utils";
 import { GrovaLogo } from "@/components/shared/logo";
 
@@ -26,14 +38,18 @@ const navLinks = [
 
 const landingLinks = [
   { href: "#home", label: "Home", icon: Globe },
-  { href: "#preview", label: "Preview", icon: BarChart2 },
   { href: "#features", label: "Features", icon: Target },
+  { href: "#benefits", label: "Benefits", icon: Zap },
+  { href: "#testimonials", label: "Testimonials", icon: Users },
+  { href: "#pricing", label: "Pricing", icon: DollarSign },
+  { href: "#faq", label: "FAQ", icon: HelpCircle },
 ];
 
 export function Navbar({ user }: NavProps) {
   const pathname = usePathname();
   const [timeInfo, setTimeInfo] = useState<UTCTimeInfo | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [imgError, setImgError] = useState(false);
@@ -67,10 +83,15 @@ export function Navbar({ user }: NavProps) {
         {/* Logo & UTC Badge */}
         <div className="flex items-center gap-5">
           <Link
-            href="/dashboard"
-            className="transition-opacity hover:opacity-90"
+            href="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="h-6 w-6 transition-opacity hover:opacity-90 sm:h-7 sm:w-7"
           >
-            <GrovaLogo showText iconClassName="h-7 w-7" />
+            <GrovaLogo
+              showText
+              iconClassName="h-6 w-6 sm:h-7 sm:w-7"
+              textClassName="text-base sm:text-lg"
+            />
           </Link>
 
           {pathname !== "/" && (
@@ -97,7 +118,7 @@ export function Navbar({ user }: NavProps) {
         </div>
 
         {/* Center Nav */}
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex">
           {(pathname === "/" ? landingLinks : navLinks).map(
             ({ href, label, icon: Icon }) => {
               const active = pathname !== "/" && pathname.startsWith(href);
@@ -145,12 +166,23 @@ export function Navbar({ user }: NavProps) {
             </div>
           )}
 
+          {/* Sponsor Button */}
+          <a
+            href="https://github.com/sponsors/RanitManik"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3 py-1.5 text-xs font-semibold text-[#e6edf3] transition-colors hover:bg-[#30363d] hover:text-white sm:flex"
+          >
+            <Heart className="h-3.5 w-3.5 text-[#bf3989]" />
+            Sponsor
+          </a>
+
           {user ? (
             <>
               {/* Dashboard Button */}
               <Link
                 href="/dashboard"
-                className="rounded-md border border-[#30363d] bg-[#21262d] px-3 py-1.5 text-xs font-semibold text-[#e6edf3] transition-colors hover:bg-[#30363d] hover:text-white"
+                className="rounded-md bg-[#238636] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#2ea043]"
               >
                 Dashboard
               </Link>
@@ -237,8 +269,42 @@ export function Navbar({ user }: NavProps) {
               </Link>
             </div>
           )}
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+            className="rounded-md p-1.5 text-[#8b949e] hover:bg-[#21262d] hover:text-white focus:outline-none md:hidden"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Drawer */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-14 left-0 z-40 w-full border-b border-[#30363d] bg-[#0d1117] px-4 py-4 shadow-lg shadow-black/40 md:hidden">
+          <nav className="flex flex-col gap-4">
+            {(pathname === "/" ? landingLinks : navLinks).map(
+              ({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 text-sm font-medium text-[#c9d1d9] transition-colors hover:text-white"
+                >
+                  <Icon className="h-4 w-4" />
+                  {label}
+                </Link>
+              ),
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
