@@ -5,8 +5,18 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import { generateUsername } from "@/lib/utils";
 
+const customAdapter = PrismaAdapter(db);
+const originalCreateUser = customAdapter.createUser!;
+customAdapter.createUser = async (user) => {
+  const base = user.name || user.email;
+  const username = generateUsername(base || "user");
+  return originalCreateUser({ ...user, username } as Parameters<
+    typeof originalCreateUser
+  >[0]);
+};
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(db),
+  adapter: customAdapter,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -27,28 +37,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.id = user.id;
         session.user.username =
           (user as { username?: string }).username ?? null;
+        if (user.image) session.user.image = user.image;
+        if (user.name) session.user.name = user.name;
       }
       return session;
-    },
-    async signIn({ user, profile }) {
-      // Auto-generate username on first sign-in
-      if (user.email) {
-        const existingUser = await db.user.findUnique({
-          where: { email: user.email },
-          select: { username: true },
-        });
-
-        if (existingUser && !existingUser.username) {
-          const base =
-            (profile as { login?: string })?.login || user.name || user.email;
-          const username = generateUsername(base || "user");
-          await db.user.update({
-            where: { email: user.email },
-            data: { username },
-          });
-        }
-      }
-      return true;
     },
   },
   session: {

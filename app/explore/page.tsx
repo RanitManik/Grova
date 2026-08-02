@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import { Users, Trophy, Flame, Target, Activity } from "lucide-react";
 import { auth } from "@/auth";
-import { Navbar } from "@/components/shared/navbar";
+import { SidebarLayout } from "@/components/shared/sidebar";
 import { ExploreFilters } from "./explore-filters";
 
 export const metadata: Metadata = {
@@ -68,10 +68,8 @@ export default async function ExplorePage({
   });
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <Navbar user={loggedInUser} />
-
-      <main className="animate-fade-in mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <SidebarLayout user={loggedInUser}>
+      <div className="animate-fade-in space-y-6">
         {/* Header */}
         <div className="mb-8 border-b border-[#30363d] pb-4">
           <h1 className="text-2xl font-semibold tracking-tight text-white">
@@ -111,6 +109,7 @@ export default async function ExplorePage({
                         <img
                           src={user.image}
                           alt={user.name ?? ""}
+                          referrerPolicy="no-referrer"
                           className="h-12 w-12 shrink-0 rounded-full border-2 border-[#30363d] bg-[#0d1117] object-cover"
                         />
                       ) : (
@@ -193,7 +192,7 @@ export default async function ExplorePage({
             ))}
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </SidebarLayout>
   );
 }

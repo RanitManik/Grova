@@ -36,6 +36,8 @@ export function Navbar({ user }: NavProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const [imgError, setImgError] = useState(false);
+
   useEffect(() => {
     const updateTimer = () => {
       const { formatted } = getUTCResetCountdown();
@@ -152,6 +154,7 @@ export function Navbar({ user }: NavProps) {
                   className="group flex cursor-pointer items-center gap-1.5 py-1 focus:outline-none"
                 >
                   <div
+                    key={user?.image ?? "avatar"}
                     className={cn(
                       "h-7 w-7 overflow-hidden rounded-full border border-[#30363d] transition-all",
                       isDropdownOpen
@@ -159,11 +162,13 @@ export function Navbar({ user }: NavProps) {
                         : "group-hover:border-[#8b949e]",
                     )}
                   >
-                    {user.image ? (
+                    {user.image && !imgError ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={user.image}
                         alt={user.name ?? "User"}
+                        referrerPolicy="no-referrer"
+                        onError={() => setImgError(true)}
                         className="h-full w-full object-cover"
                       />
                     ) : (

@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ContributionHeatmap } from "@/components/shared/heatmap";
-import { Navbar } from "@/components/shared/navbar";
+import { SidebarLayout } from "@/components/shared/sidebar";
 import { FollowButton } from "./follow-button";
 import { cn } from "@/lib/utils";
 
@@ -161,15 +161,24 @@ export default async function PublicProfilePage({ params }: Props) {
     },
   });
 
+  let loggedInUser = null;
+  if (session?.user?.id) {
+    loggedInUser = await db.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        name: true,
+        username: true,
+        image: true,
+        currentStreak: true,
+      },
+    });
+  }
+
   const isOwnProfile = session?.user?.id === user.id;
 
   return (
-    <div className="min-h-screen bg-[#0d1117] font-sans text-[#e6edf3] antialiased">
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <Navbar user={session?.user as any} />
-
-      {/* ── Main Container ── */}
-      <main className="animate-fade-in mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+    <SidebarLayout user={loggedInUser}>
+      <div className="animate-fade-in space-y-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-[#8b949e]">
           <Link
@@ -187,8 +196,8 @@ export default async function PublicProfilePage({ params }: Props) {
         </nav>
 
         {/* ── Profile Header Section ── */}
-        <div className="flex flex-col items-start justify-between gap-6 pb-1 md:flex-row">
-          <div className="flex flex-col items-start gap-5 sm:flex-row">
+        <div className="relative flex w-full flex-col items-start justify-between gap-6 pb-1 md:flex-row">
+          <div className="flex w-full flex-col items-start gap-5 sm:flex-row">
             {/* User Avatar */}
             <div className="h-28 w-28 shrink-0 overflow-hidden rounded-md border border-[#30363d] bg-[#161b22] sm:h-32 sm:w-32">
               {user.image ? (
@@ -196,6 +205,7 @@ export default async function PublicProfilePage({ params }: Props) {
                 <img
                   src={user.image}
                   alt={user.name ?? user.username ?? ""}
+                  referrerPolicy="no-referrer"
                   className="h-full w-full object-cover"
                 />
               ) : (
@@ -272,13 +282,13 @@ export default async function PublicProfilePage({ params }: Props) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5 self-start pt-1">
+          <div className="flex shrink-0 items-center gap-2.5">
             {isOwnProfile ? (
               <Link
                 href="/settings"
-                className="rounded-md border border-[#30363d] bg-[#21262d] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#30363d]"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#30363d]"
               >
-                Edit profile
+                <span>Edit profile</span>
               </Link>
             ) : (
               <>
@@ -288,7 +298,7 @@ export default async function PublicProfilePage({ params }: Props) {
                     initialFollowing={isFollowing}
                   />
                 ) : (
-                  <button className="rounded-md border border-[#30363d] bg-[#21262d] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#30363d]">
+                  <button className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-colors hover:border-[#8b949e] hover:bg-[#30363d]">
                     Follow
                   </button>
                 )}
@@ -534,13 +544,14 @@ export default async function PublicProfilePage({ params }: Props) {
                       {followersList.map((f, i) => (
                         <div
                           key={i}
-                          className="flex inline-block h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-emerald-700 text-[10px] font-bold text-white ring-2 ring-[#161b22]"
+                          className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-emerald-700 text-[10px] font-bold text-white ring-2 ring-[#161b22]"
                         >
                           {f.follower.image ? (
                             /* eslint-disable-next-line @next/next/no-img-element */
                             <img
                               src={f.follower.image}
                               alt=""
+                              referrerPolicy="no-referrer"
                               className="h-full w-full object-cover"
                             />
                           ) : (
@@ -570,7 +581,7 @@ export default async function PublicProfilePage({ params }: Props) {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </SidebarLayout>
   );
 }

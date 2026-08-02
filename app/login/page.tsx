@@ -55,7 +55,7 @@ export default function LoginPage() {
             >
               <button
                 type="submit"
-                className="group flex w-full cursor-pointer items-center gap-3 rounded border border-[#30363d] bg-[#21262d] px-4 py-2.5 text-sm font-medium text-[#c9d1d9] transition-all hover:border-[#8b949e] hover:bg-[#30363d] hover:text-white active:scale-[0.99]"
+                className="group flex w-full cursor-pointer items-center gap-3 rounded border border-[#30363d] bg-[#21262d] px-4 py-2.5 text-sm font-medium text-[#c9d1d9] transition-all hover:bg-[#30363d] hover:text-white active:scale-[0.99]"
               >
                 <svg
                   className="h-4.5 w-4.5 shrink-0"
@@ -77,7 +77,7 @@ export default function LoginPage() {
             >
               <button
                 type="submit"
-                className="group flex w-full cursor-pointer items-center gap-3 rounded-md border border-[#30363d] bg-[#21262d] px-4 py-2.5 text-sm font-medium text-[#c9d1d9] transition-all hover:border-[#8b949e] hover:bg-[#30363d] hover:text-white active:scale-[0.99]"
+                className="group flex w-full cursor-pointer items-center gap-3 rounded-md border border-[#30363d] bg-[#21262d] px-4 py-2.5 text-sm font-medium text-[#c9d1d9] transition-all hover:bg-[#30363d] hover:text-white active:scale-[0.99]"
               >
                 <svg className="h-4.5 w-4.5 shrink-0" viewBox="0 0 24 24">
                   <path

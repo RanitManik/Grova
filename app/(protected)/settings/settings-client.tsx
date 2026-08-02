@@ -20,6 +20,7 @@ interface SettingsClientProps {
 export function SettingsClient({ user }: SettingsClientProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [imgError, setImgError] = useState(false);
 
   const [form, setForm] = useState({
     name: user.name ?? "",
@@ -198,11 +199,13 @@ export function SettingsClient({ user }: SettingsClientProps) {
             </label>
             <div className="flex flex-col items-start gap-4">
               <div className="h-48 w-48 overflow-hidden rounded-full border border-[#30363d] bg-[#161b22]">
-                {user.image ? (
+                {user.image && !imgError ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={user.image}
                     alt="Profile"
+                    referrerPolicy="no-referrer"
+                    onError={() => setImgError(true)}
                     className="h-full w-full object-cover"
                   />
                 ) : (

@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { Navbar } from "@/components/shared/navbar";
+import { SidebarLayout } from "@/components/shared/sidebar";
 import { db } from "@/lib/db";
 
 export default async function ProtectedLayout({
@@ -30,16 +30,15 @@ export default async function ProtectedLayout({
   }
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <Navbar
-        user={{
-          name: user.name,
-          username: user.username,
-          image: user.image,
-          currentStreak: user.currentStreak,
-        }}
-      />
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">{children}</main>
-    </div>
+    <SidebarLayout
+      user={{
+        name: user.name,
+        username: user.username,
+        image: user.image,
+        currentStreak: user.currentStreak,
+      }}
+    >
+      {children}
+    </SidebarLayout>
   );
 }
