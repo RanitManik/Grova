@@ -1,0 +1,8 @@
+# Global owners for the codebase
+* @RanitManik
+
+# Database & Schema
+/prisma/ @RanitManik
+
+# CI/CD & GitHub Configuration
+/.github/ @RanitManik
