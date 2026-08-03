@@ -19,7 +19,7 @@ const baseUrl = process.env.NEXTAUTH_URL || "https://grova.5dev.in";
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Grova — Goal Tracking & Habit Building SaaS",
+    default: "Grova — Public Goal Tracker & Habit Builder",
     template: "%s | Grova",
   },
   description:
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: `${baseUrl}/`,
     siteName: "Grova",
-    title: "Grova — Goal Tracking & Habit Building SaaS",
+    title: "Grova — Public Goal Tracker & Habit Builder",
     description:
       "Transform long-term goals into visual streaks, daily consistency heatmaps, and community accountability.",
     images: [
@@ -66,13 +66,13 @@ export const metadata: Metadata = {
         url: `${baseUrl}/og.png`,
         width: 1200,
         height: 630,
-        alt: "Grova — Goal Tracking & Habit Building SaaS",
+        alt: "Grova — Public Goal Tracker & Habit Builder",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grova — Goal Tracking & Habit Building SaaS",
+    title: "Grova — Public Goal Tracker & Habit Builder",
     description:
       "Transform long-term goals into visual streaks, daily consistency heatmaps, and community accountability.",
     images: [`${baseUrl}/og.png`],
