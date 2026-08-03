@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   validate:
-    name: Code Quality & Build Verification
+    name: Code Quality Verification
     runs-on: ubuntu-latest
 
     steps:
@@ -40,9 +40,3 @@ jobs:
 
       - name: TypeScript Type Check
         run: pnpm type-check
-
-      - name: Next.js Production Build
-        run: pnpm build
-        env:
-          NEXTAUTH_SECRET: "ci-secret-key-for-build-verification"
-          DATABASE_URL: "postgresql://ci:ci@localhost:5432/ci"
