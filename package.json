@@ -13,6 +13,7 @@
     "db:studio": "prisma studio",
     "change": "changeset",
     "version-packages": "changeset version",
+    "release": "changeset tag",
     "dev": "next dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
