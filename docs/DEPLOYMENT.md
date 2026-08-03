@@ -27,12 +27,10 @@ Vercel is the fastest and easiest platform to host Next.js App Router projects.
    - Go to [Vercel Dashboard](https://vercel.com/new).
    - Select your `Grova` repository and click **Import**.
 
-3. **Configure Project Settings**:
-   - **Framework Preset**: `Next.js`
-   - **Build Command**: `pnpm build` (or `npx prisma generate && next build`)
+   - **Build Command**: `pnpm build` (runs `prisma migrate deploy && prisma generate && next build`)
    - **Install Command**: `pnpm install`
 
-4. **Set Environment Variables**:
+3. **Set Environment Variables**:
    Add the following environment variables in the Vercel project settings:
    - `DATABASE_URL`: Your pooled Neon connection string.
    - `DIRECT_URL`: Your direct Neon connection string.
@@ -41,7 +39,7 @@ Vercel is the fastest and easiest platform to host Next.js App Router projects.
    - `AUTH_GITHUB_ID` & `AUTH_GITHUB_SECRET`: GitHub OAuth app credentials.
    - `AUTH_GOOGLE_ID` & `AUTH_GOOGLE_SECRET`: Google OAuth app credentials.
 
-5. **Deploy**:
+4. **Deploy**:
    Click **Deploy**. Vercel will automatically build and publish your site.
 
 ---
@@ -109,10 +107,22 @@ Grova uses [Prisma ORM v7](https://www.prisma.io/) connected to PostgreSQL.
 1. Create a free database at [Neon.tech](https://neon.tech).
 2. Copy your **Pooled Connection String** to `DATABASE_URL` (for connection pooling in serverless environments).
 3. Copy your **Direct Connection String** to `DIRECT_URL` (used by Prisma for migrations).
-4. Run schema initialization:
+4. Run database migrations for production:
    ```bash
-   pnpm db:push
+   pnpm db:deploy
    ```
+   _(Or `pnpm db:push` if initializing without migration history files)._
+
+### Production Schema Migration Workflow
+
+When modifying the database schema (`prisma/schema.prisma`):
+
+1. **Local Development**: Generate migration SQL files:
+   ```bash
+   pnpm db:migrate --name add_new_feature
+   ```
+2. **Commit Migration Files**: Commit `prisma/migrations/` to Git.
+3. **Automated Production Deployment**: When building on Vercel or your hosting server, `pnpm build` will automatically run `pnpm db:deploy` (`prisma migrate deploy`) against your production database using `DIRECT_URL` / `DATABASE_URL` before compiling the app.
 
 ---
 

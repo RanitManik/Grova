@@ -204,20 +204,21 @@ Ensure you have the following installed on your local development machine:
 
 In the project root, you can run the following scripts using `pnpm`:
 
-| Command             | Description                                                                         |
-| ------------------- | ----------------------------------------------------------------------------------- |
-| `pnpm dev`          | Starts the Next.js development server with hot reloading.                           |
-| `pnpm build`        | Generates Prisma client and compiles Next.js for production.                        |
-| `pnpm start`        | Starts the Next.js production server.                                               |
-| `pnpm validate`     | Full QA run: Tailwind class check, formatting, linting, type-checking & build test. |
-| `pnpm format`       | Auto-formats all codebase files using Prettier.                                     |
-| `pnpm format:check` | Verifies code formatting compliance without modifying files.                        |
-| `pnpm lint`         | Runs ESLint to catch syntax, import, and code style issues.                         |
-| `pnpm type-check`   | Performs strict TypeScript type checks (`tsc --noEmit`).                            |
-| `pnpm db:generate`  | Generates Prisma Client TypeScript definitions.                                     |
-| `pnpm db:push`      | Pushes Prisma schema directly to the configured database.                           |
-| `pnpm db:migrate`   | Runs database migrations in development mode (`prisma migrate dev`).                |
-| `pnpm db:studio`    | Launches Prisma Studio GUI at `http://localhost:5555`.                              |
+| Command             | Description                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `pnpm dev`          | Starts the Next.js development server with hot reloading.                                                           |
+| `pnpm build`        | Runs production migrations (`prisma migrate deploy`), generates Prisma client, and compiles Next.js for production. |
+| `pnpm start`        | Starts the Next.js production server.                                                                               |
+| `pnpm validate`     | Full QA run: Tailwind class check, formatting, linting, type-checking & build test.                                 |
+| `pnpm format`       | Auto-formats all codebase files using Prettier.                                                                     |
+| `pnpm format:check` | Verifies code formatting compliance without modifying files.                                                        |
+| `pnpm lint`         | Runs ESLint to catch syntax, import, and code style issues.                                                         |
+| `pnpm type-check`   | Performs strict TypeScript type checks (`tsc --noEmit`).                                                            |
+| `pnpm db:generate`  | Generates Prisma Client TypeScript definitions.                                                                     |
+| `pnpm db:push`      | Pushes Prisma schema directly to the configured database.                                                           |
+| `pnpm db:migrate`   | Runs database migrations in development mode (`prisma migrate dev`).                                                |
+| `pnpm db:deploy`    | Runs pending database migrations safely in production mode (`prisma migrate deploy`).                               |
+| `pnpm db:studio`    | Launches Prisma Studio GUI at `http://localhost:5555`.                                                              |
 
 ## Commit Hooks & Code Quality
 
