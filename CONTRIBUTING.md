@@ -145,8 +145,21 @@ Commit messages must follow this structure:
 - **TypeScript**: Strict mode enabled. Avoid `any` types.
 - **Formatting**: Prettier is configured. Run `pnpm format` to auto-format.
 - **Linting**: ESLint with Next.js & TypeScript rules. Run `pnpm lint`.
-- **Pre-commit Hooks**: Husky automatically validates staged files before each commit.
 
 ---
+
+## 📦 Release Workflow & Changesets
+
+Grova uses **Changesets** for semver versioning, automated changelog generation, and GitHub Releases.
+
+When submitting a PR with user-facing features or fix updates:
+
+1. Create a changeset file:
+   ```bash
+   pnpm change
+   ```
+2. Select the change type (`patch`, `minor`, `major`) and describe the changes.
+3. Commit the generated `.changeset/*.md` file with your code.
+4. When your PR is merged into `main`, GitHub Actions will automatically open a **Version Packages** PR to update [CHANGELOG.md](file:///Users/ranitmanik/code/New%20Project/CHANGELOG.md), bump the version in `package.json`, and publish a GitHub Release when merged!
 
 Thank you for helping build **Grova**! 🚀
