@@ -32,7 +32,7 @@ _Transform your long-term goals into visual streaks, daily consistency heatmaps,
   - [Environment Variables](#environment-variables)
 - [Available Scripts](#available-scripts)
 - [Commit Hooks & Code Quality](#commit-hooks--code-quality)
-- [Deployment & CI/CD Guides](#deployment--cicd-guides)
+- [Documentation & Guides](#documentation--guides)
   - [Deploying on Vercel](#deploying-on-vercel)
   - [Neon PostgreSQL Database Setup](#neon-postgresql-database-setup)
 - [Community & Contributing](#community--contributing)
@@ -238,9 +238,10 @@ git commit -m "feat(analytics): add monthly completion breakdown chart"
 
 If a commit message does not comply with the convention, the commit will be rejected with actionable feedback.
 
-## Deployment & CI/CD Guides
+## Documentation & Guides
 
-- **Deployment & Self-Hosting**: For detailed step-by-step instructions on Vercel deployment, Neon PostgreSQL configuration, and custom self-hosting (Docker/VPS/Node), read our full [Deployment & Self-Hosting Guide](docs/DEPLOYMENT.md).
+- **System Architecture**: Read our [Technical Architecture & System Design](docs/ARCHITECTURE.md) guide for details on Next.js App Router patterns, RSC boundaries, and database schema mechanics.
+- **Deployment & Self-Hosting**: For step-by-step instructions on Vercel deployment, Neon PostgreSQL configuration, and custom self-hosting (Docker/VPS/Node), read our full [Deployment & Self-Hosting Guide](docs/DEPLOYMENT.md).
 - **Automated CI/CD & Releases**: For details on our GitHub Actions verification workflows, Dependabot auto-merge, Changeset versioning, and GitHub release automation, see the [CI/CD Pipeline Documentation](docs/CICD.md).
 
 ### Deploying on Vercel
@@ -270,6 +271,9 @@ The easiest and recommended way to deploy Grova is using [Vercel](https://vercel
 We welcome and appreciate contributions of all kinds! Please read our community guidelines before opening an issue or pull request:
 
 - [Contributing Guide](CONTRIBUTING.md) — Detailed steps on local setup, branch conventions, and PR workflow.
+- [Community Standards](docs/COMMUNITY_STANDARDS.md) — Code quality checklists, architectural constraints, and review rules.
+- [Support Guidelines](.github/SUPPORT.md) — How to get help, report bugs, ask questions, or request features.
+- [Project Governance](.github/GOVERNANCE.md) — Maintainer responsibilities, decision-making, and release management.
 - [Code of Conduct](CODE_OF_CONDUCT.md) — Community behavior standards and pledge.
 - [Security Policy](.github/SECURITY.md) — Guidelines for reporting security vulnerabilities.
 - [Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md) — Checklist for submitting PRs.
