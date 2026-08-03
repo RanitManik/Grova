@@ -4,5 +4,5 @@
   "buildCommand": "pnpm build",
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install",
-  "ignoreCommand": "git diff HEAD^ HEAD --quiet . ':!docs' ':!.github' ':!*.md'"
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./"
 }
