@@ -18,6 +18,8 @@ _Transform your long-term goals into visual streaks, daily consistency heatmaps,
 
 </div>
 
+<img alt="hero" src="public/hero-product-preview.png" />
+
 ## Table of Contents
 
 - [Overview](#overview)
