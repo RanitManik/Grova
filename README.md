@@ -218,6 +218,7 @@ In the project root, you can run the following scripts using `pnpm`:
 | `pnpm db:push`      | Pushes Prisma schema directly to the configured database.                                                           |
 | `pnpm db:migrate`   | Runs database migrations in development mode (`prisma migrate dev`).                                                |
 | `pnpm db:deploy`    | Runs pending database migrations safely in production mode (`prisma migrate deploy`).                               |
+| `pnpm db:reset`     | Drops and resets the development database schema (`prisma migrate reset`).                                          |
 | `pnpm db:studio`    | Launches Prisma Studio GUI at `http://localhost:5555`.                                                              |
 
 ## Commit Hooks & Code Quality
