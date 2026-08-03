@@ -47,6 +47,28 @@ export function HeroGlowArc() {
             <stop offset="70%" stopColor="#ffffff" stopOpacity="0.4" />
             <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
           </linearGradient>
+
+          <filter
+            id="glow-blur-wide"
+            filterUnits="userSpaceOnUse"
+            x="-300"
+            y="-200"
+            width="1800"
+            height="600"
+          >
+            <feGaussianBlur stdDeviation="32" result="blur" />
+          </filter>
+
+          <filter
+            id="glow-blur-mid"
+            filterUnits="userSpaceOnUse"
+            x="-300"
+            y="-200"
+            width="1800"
+            height="600"
+          >
+            <feGaussianBlur stdDeviation="12" result="blur" />
+          </filter>
         </defs>
 
         {/* Outer wide ambient glow stroke */}
@@ -56,7 +78,8 @@ export function HeroGlowArc() {
           strokeWidth="70"
           strokeLinecap="round"
           fill="none"
-          className="opacity-40 blur-[32px]"
+          className="opacity-40"
+          filter="url(#glow-blur-wide)"
         />
 
         {/* Mid glow stroke */}
@@ -66,7 +89,8 @@ export function HeroGlowArc() {
           strokeWidth="24"
           strokeLinecap="round"
           fill="none"
-          className="opacity-75 blur-md"
+          className="opacity-75"
+          filter="url(#glow-blur-mid)"
         />
 
         {/* Sharp main green beam line */}
