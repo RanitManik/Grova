@@ -18,6 +18,7 @@ import {
   Clock,
   Calendar,
   Timer,
+  Heart,
 } from "lucide-react";
 import { cn, getUTCTimeInfo, type UTCTimeInfo } from "@/lib/utils";
 import { GrovaLogo } from "@/components/shared/logo";
@@ -218,6 +219,19 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
           </div>
         </div>
 
+        {/* Mobile Sponsor Button */}
+        <div className="mx-3 mb-2.5">
+          <a
+            href="https://github.com/sponsors/RanitManik"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-md border border-[#30363d] bg-[#21262d] px-3 py-2 text-xs font-semibold text-[#e6edf3] transition-colors hover:bg-[#30363d] hover:text-white"
+          >
+            <Heart className="h-3.5 w-3.5 text-[#bf3989]" />
+            Sponsor
+          </a>
+        </div>
+
         {/* Mobile User Footer */}
         {user && (
           <div className="border-t border-[#30363d] p-2.5">
@@ -330,10 +344,23 @@ export function SidebarLayout({ user, children }: SidebarLayoutProps) {
           </div>
         </div>
 
+        {/* Desktop Sponsor Button */}
+        <div className="mx-3 mb-2.5">
+          <a
+            href="https://github.com/sponsors/RanitManik"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-1.5 rounded-md border border-[#30363d] bg-[#21262d] px-3 py-1.5 text-sm font-semibold text-[#e6edf3] transition-colors hover:bg-[#30363d] hover:text-white"
+          >
+            <Heart className="h-4 w-4 text-[#db61a2]" strokeWidth={2.5} />
+            Sponsor
+          </a>
+        </div>
+
         {/* User Profile Card Footer (Rounded matching page cards) */}
         {user ? (
           <div className="border-t border-[#30363d] p-2.5">
-            <div className="flex items-center justify-between rounded-md border border-[#30363d] bg-[#161b22] p-2 hover:border-[#8b949e]/50">
+            <div className="flex items-center justify-between rounded-md border border-[#30363d] bg-[#161b22] p-2">
               <Link
                 href={user.username ? `/${user.username}` : "/settings"}
                 className="group flex min-w-0 flex-1 items-center gap-2.5"
