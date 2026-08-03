@@ -2,12 +2,19 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 
 export function CtaCard() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-      <div className="group block">
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="group block"
+      >
         <div className="relative flex flex-col items-center justify-between rounded-md bg-[#161b22] p-12 text-center sm:p-16">
           {/* Header Badge */}
           <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[#3fb950]/30 bg-[#3fb950]/15 px-3 py-1 text-xs font-semibold text-[#3fb950]">
@@ -35,7 +42,7 @@ export function CtaCard() {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

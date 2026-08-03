@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Check, Heart, ArrowRight } from "lucide-react";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -41,7 +42,13 @@ export function PricingSection() {
       className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20"
     >
       {/* Section Header */}
-      <div className="mb-12 border-b border-[#30363d] pb-6 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+        className="mb-12 border-b border-[#30363d] pb-6 text-center"
+      >
         <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#3fb950]/30 bg-[#3fb950]/15 px-3 py-1 text-xs font-semibold tracking-wider text-[#3fb950] uppercase">
           <Heart className="h-3.5 w-3.5 fill-[#3fb950]" />
           FREE & OPEN SOURCE
@@ -53,12 +60,18 @@ export function PricingSection() {
           No paywalls or hidden subscriptions. Use Grova Cloud for free or
           deploy on your own server.
         </p>
-      </div>
+      </motion.div>
 
       {/* 2-Column Pricing Cards */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* ── Plan 1: Grova Cloud (Free Forever) ── */}
-        <div className="group block">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0 }}
+          className="group block"
+        >
           <div className="relative flex h-full flex-col justify-between rounded-md bg-[#161b22] p-6 sm:p-8">
             <div className="flex flex-1 flex-col">
               {/* Header */}
@@ -108,10 +121,16 @@ export function PricingSection() {
               </button>
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Plan 2: Self-Hostable (Open Source) ── */}
-        <div className="group block">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="group block"
+        >
           <div className="relative flex h-full flex-col justify-between rounded-md bg-[#161b22] p-6 sm:p-8">
             <div className="flex flex-1 flex-col">
               {/* Header */}
@@ -166,7 +185,7 @@ export function PricingSection() {
               </button>
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

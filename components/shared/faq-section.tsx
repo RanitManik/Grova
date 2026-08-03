@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HelpCircle, ChevronDown } from "lucide-react";
 
 const faqList = [
@@ -46,7 +47,13 @@ export function FaqSection() {
   return (
     <section id="faq" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
       {/* Widespread Section Header */}
-      <div className="mb-12 border-b border-[#30363d] pb-6 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+        className="mb-12 border-b border-[#30363d] pb-6 text-center"
+      >
         <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#3fb950]/30 bg-[#3fb950]/15 px-3 py-1 text-xs font-semibold tracking-wider text-[#3fb950] uppercase">
           <HelpCircle className="h-3.5 w-3.5" />
           FREQUENTLY ASKED QUESTIONS
@@ -58,15 +65,19 @@ export function FaqSection() {
           Everything you need to know about Grova, streaks, self-hosting, and
           privacy.
         </p>
-      </div>
+      </motion.div>
 
       {/* Accordion FAQ Stack */}
       <div className="mx-auto flex max-w-3xl flex-col gap-3.5">
         {faqList.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
               className="overflow-hidden rounded-md bg-[#161b22] transition-colors duration-150"
             >
               <button
@@ -85,20 +96,22 @@ export function FaqSection() {
                 />
               </button>
 
-              <div
-                className={`grid transition-all duration-300 ease-in-out ${
-                  isOpen
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
-                }`}
-              >
-                <div className="overflow-hidden">
-                  <div className="border-t border-[#30363d]/50 bg-[#161b22] px-5 py-4 text-sm leading-relaxed text-[#c9d1d9]">
-                    {item.answer}
-                  </div>
-                </div>
-              </div>
-            </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="border-t border-[#30363d]/50 bg-[#161b22] px-5 py-4 text-sm leading-relaxed text-[#c9d1d9]">
+                      {item.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           );
         })}
       </div>

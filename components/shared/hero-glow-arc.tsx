@@ -1,10 +1,16 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 export function HeroGlowArc() {
   return (
-    <div className="pointer-events-none relative mx-auto -mt-6 mb-2 w-full max-w-6xl overflow-visible select-none">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+      className="pointer-events-none relative mx-auto -mt-6 mb-2 w-full max-w-6xl overflow-visible select-none"
+    >
       {/* Soft background radial ambient light */}
       <div className="absolute top-1/2 left-1/2 h-32.5 w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-emerald-500/15 opacity-75 blur-[90px]" />
 
@@ -113,6 +119,6 @@ export function HeroGlowArc() {
           className="opacity-80"
         />
       </svg>
-    </div>
+    </motion.div>
   );
 }

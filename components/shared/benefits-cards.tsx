@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import {
   ShieldCheck,
   Calendar,
@@ -62,7 +63,13 @@ export function BenefitsCards() {
       className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20"
     >
       {/* Section Header */}
-      <div className="mb-12 border-b border-[#30363d] pb-6 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+        className="mb-12 border-b border-[#30363d] pb-6 text-center"
+      >
         <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#3fb950]/30 bg-[#3fb950]/15 px-3 py-1 text-xs font-semibold tracking-wider text-[#3fb950] uppercase">
           <Sparkles className="h-3.5 w-3.5" />
           KEY ADVANTAGES
@@ -74,14 +81,21 @@ export function BenefitsCards() {
           Built to help you maintain momentum, track progress, and showcase your
           discipline.
         </p>
-      </div>
+      </motion.div>
 
       {/* 3x2 Grid Layout matching reference design */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {benefitsList.map((benefit, idx) => {
           const Icon = benefit.icon;
           return (
-            <div key={idx} className="group block">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              className="group block"
+            >
               <div className="relative flex h-full flex-col justify-between rounded-md bg-[#161b22] p-6 transition-all duration-200 group-hover:bg-[#1f242c]">
                 <div>
                   {/* Top-left Icon Badge */}
@@ -100,7 +114,7 @@ export function BenefitsCards() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
