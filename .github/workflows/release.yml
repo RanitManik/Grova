@@ -55,7 +55,7 @@ jobs:
         if: steps.changesets.outputs.pullRequestNumber != ''
         run: gh pr merge "${{ steps.changesets.outputs.pullRequestNumber }}" --auto --merge --delete-branch || gh pr merge "${{ steps.changesets.outputs.pullRequestNumber }}" --merge --delete-branch || true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Publish GitHub Release
         if: steps.changesets.outputs.hasChangesets == 'false'

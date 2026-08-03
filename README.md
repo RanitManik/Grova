@@ -32,7 +32,7 @@ _Transform your long-term goals into visual streaks, daily consistency heatmaps,
   - [Environment Variables](#environment-variables)
 - [Available Scripts](#available-scripts)
 - [Commit Hooks & Code Quality](#commit-hooks--code-quality)
-- [Deployment Guide](#deployment-guide)
+- [Deployment & CI/CD Guides](#deployment--cicd-guides)
   - [Deploying on Vercel](#deploying-on-vercel)
   - [Neon PostgreSQL Database Setup](#neon-postgresql-database-setup)
 - [Community & Contributing](#community--contributing)
@@ -238,9 +238,10 @@ git commit -m "feat(analytics): add monthly completion breakdown chart"
 
 If a commit message does not comply with the convention, the commit will be rejected with actionable feedback.
 
-## Deployment Guide
+## Deployment & CI/CD Guides
 
-For detailed step-by-step instructions on Vercel deployment, Neon PostgreSQL configuration, and custom self-hosting (Docker/VPS/Node), read our full [Deployment & Self-Hosting Guide](docs/DEPLOYMENT.md).
+- **Deployment & Self-Hosting**: For detailed step-by-step instructions on Vercel deployment, Neon PostgreSQL configuration, and custom self-hosting (Docker/VPS/Node), read our full [Deployment & Self-Hosting Guide](docs/DEPLOYMENT.md).
+- **Automated CI/CD & Releases**: For details on our GitHub Actions verification workflows, Dependabot auto-merge, Changeset versioning, and GitHub release automation, see the [CI/CD Pipeline Documentation](docs/CICD.md).
 
 ### Deploying on Vercel
 
