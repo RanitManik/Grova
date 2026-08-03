@@ -4,6 +4,6 @@
   "buildCommand": "pnpm build",
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install",
-  "regions": ["iad1"],
+  "regions": ["iad1", "bom1"],
   "ignoreCommand": "git diff HEAD^ HEAD --quiet . ':!docs' ':!.github' ':!*.md'"
 }

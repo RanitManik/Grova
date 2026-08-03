@@ -41,20 +41,34 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Create Release Pull Request or Publish GitHub Release
+      - name: Create Release Pull Request
         id: changesets
         uses: changesets/action@v1
         with:
           title: "chore(release): version packages"
           commit: "chore(release): version packages"
           version: pnpm run version-packages
-          publish: pnpm run release
-          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable Auto-Merge on Release PR
         if: steps.changesets.outputs.pullRequestNumber != ''
         run: gh pr merge "${{ steps.changesets.outputs.pullRequestNumber }}" --auto --merge --delete-branch || gh pr merge "${{ steps.changesets.outputs.pullRequestNumber }}" --merge --delete-branch || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish GitHub Release
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          pnpm run release
+          git push --follow-tags
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v$VERSION"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Creating release $TAG..."
+            gh release create "$TAG" --title "Release $TAG" --generate-notes
+          else
+            echo "Release $TAG already exists. Skipping."
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
