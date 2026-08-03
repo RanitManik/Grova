@@ -18,6 +18,9 @@ _Transform your long-term goals into visual streaks, daily consistency heatmaps,
 
 </div>
 
+<img width="1798" height="1071" alt="hero" src="https://github.com/user-attachments/assets/f9345999-1aa0-4bf0-8e3e-7f68ef6bb63b" />
+
+
 ## Table of Contents
 
 - [Overview](#overview)
