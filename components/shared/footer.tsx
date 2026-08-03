@@ -94,14 +94,6 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="#preview"
-                  className="underline-offset-4 hover:underline"
-                >
-                  Product Preview
-                </a>
-              </li>
-              <li>
                 <Link
                   href="/explore"
                   className="underline-offset-4 hover:underline"
@@ -123,6 +115,16 @@ export function Footer() {
                   className="underline-offset-4 hover:underline"
                 >
                   Sign In
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://github.com/RanitManik/Grova/releases"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline-offset-4 hover:underline"
+                >
+                  Changelog
                 </Link>
               </li>
             </ul>

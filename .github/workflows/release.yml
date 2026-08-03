@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "*.md"
+      - "docs/**"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,6 +17,7 @@ jobs:
   release:
     name: Release & Versioning
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     permissions:
       contents: write
@@ -46,7 +51,8 @@ jobs:
           title: "chore(release): version packages"
           commit: "chore(release): version packages"
           version: pnpm run version-packages
-          publish: echo "Private SaaS release created"
+          publish: pnpm run release
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
