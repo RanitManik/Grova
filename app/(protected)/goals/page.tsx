@@ -5,7 +5,13 @@ import { Metadata } from "next";
 import { GoalsClient } from "./goals-client";
 import { Suspense } from "react";
 
-export const metadata: Metadata = { title: "Goals" };
+export const metadata: Metadata = {
+  title: "Goals",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface GoalsPageProps {
   searchParams?: Promise<{ action?: string; new?: string; create?: string }>;

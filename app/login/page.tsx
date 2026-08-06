@@ -5,9 +5,28 @@ import Link from "next/link";
 import { GrovaLogo } from "@/components/shared/logo";
 import { ArrowLeft, AlertCircle, Check } from "lucide-react";
 
+const baseUrl = process.env.NEXTAUTH_URL || "https://grova.5dev.in";
+
 export const metadata: Metadata = {
   title: "Sign In",
-  description: "Sign in to Grova to track your goals and build streaks.",
+  description:
+    "Sign in to Grova to track your goals, build streaks, and view your heatmap.",
+  alternates: {
+    canonical: `${baseUrl}/login`,
+  },
+  openGraph: {
+    title: "Sign In | Grova",
+    description:
+      "Sign in to Grova to track your goals, build streaks, and view your heatmap.",
+    url: `${baseUrl}/login`,
+    siteName: "Grova",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sign In | Grova",
+    description:
+      "Sign in to Grova to track your goals, build streaks, and view your heatmap.",
+  },
 };
 
 function getAuthErrorMessage(errorCode: string): {

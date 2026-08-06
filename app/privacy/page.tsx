@@ -3,9 +3,25 @@ import { Footer } from "@/components/shared/footer";
 import { Metadata } from "next";
 import { auth } from "@/auth";
 
+const baseUrl = process.env.NEXTAUTH_URL || "https://grova.5dev.in";
+
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy Policy for Grova.",
+  description: "Privacy Policy and data protection details for Grova.",
+  alternates: {
+    canonical: `${baseUrl}/privacy`,
+  },
+  openGraph: {
+    title: "Privacy Policy | Grova",
+    description: "Privacy Policy and data protection details for Grova.",
+    url: `${baseUrl}/privacy`,
+    siteName: "Grova",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Grova",
+    description: "Privacy Policy and data protection details for Grova.",
+  },
 };
 
 export default async function PrivacyPolicyPage() {

@@ -116,6 +116,8 @@ export default async function PublicProfilePage({ params }: Props) {
 
   if (!user) notFound();
 
+  const displayName = user.name || user.username || username;
+
   // 2. Check if logged in user is following profile user
   let isFollowing = false;
   if (session?.user?.id && session.user.id !== user.id) {
@@ -235,8 +237,35 @@ export default async function PublicProfilePage({ params }: Props) {
 
   const isOwnProfile = session?.user?.id === user.id;
 
+  const profileJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateCreated: user.createdAt.toISOString(),
+    dateModified: user.updatedAt.toISOString(),
+    mainEntity: {
+      "@type": "Person",
+      name: displayName,
+      alternateName: `@${user.username || username}`,
+      identifier: user.username || username,
+      description: user.bio || undefined,
+      image: user.image || undefined,
+      sameAs: user.website || undefined,
+      agentInteractionStatistic: [
+        {
+          "@type": "InteractionCounter",
+          interactionType: "https://schema.org/FollowAction",
+          userInteractionCount: user._count.followers,
+        },
+      ],
+    },
+  };
+
   return (
     <SidebarLayout user={loggedInUser}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
+      />
       <div className="animate-fade-in space-y-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-[#8b949e]">

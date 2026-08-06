@@ -5,7 +5,13 @@ import { Metadata } from "next";
 import { format, subDays, eachDayOfInterval } from "date-fns";
 import { AnalyticsClient } from "./analytics-client";
 
-export const metadata: Metadata = { title: "Analytics" };
+export const metadata: Metadata = {
+  title: "Analytics",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function AnalyticsPage() {
   const session = await auth();

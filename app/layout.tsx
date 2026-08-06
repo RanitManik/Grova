@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
@@ -16,6 +16,16 @@ const geistMono = Geist_Mono({
 });
 
 const baseUrl = process.env.NEXTAUTH_URL || "https://grova.5dev.in";
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0d1117" },
+    { media: "(prefers-color-scheme: light)", color: "#0d1117" },
+  ],
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -94,23 +104,53 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Grova",
-  operatingSystem: "All",
-  applicationCategory: "ProductivityApplication",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  description:
-    "Transform long-term goals into visual streaks, daily consistency heatmaps, and community accountability.",
-  url: baseUrl,
-  author: {
-    "@type": "Person",
-    name: "Ranit Manik",
-    url: "https://github.com/RanitManik",
-  },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${baseUrl}/#website`,
+      url: baseUrl,
+      name: "Grova",
+      description: "Public Goal Tracker & Habit Builder",
+      publisher: {
+        "@type": "Organization",
+        "@id": `${baseUrl}/#organization`,
+        name: "Grova",
+        url: baseUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: `${baseUrl}/logo.svg`,
+        },
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${baseUrl}/explore?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${baseUrl}/#software`,
+      name: "Grova",
+      operatingSystem: "All",
+      applicationCategory: "ProductivityApplication",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      description:
+        "Transform long-term goals into visual streaks, daily consistency heatmaps, and community accountability.",
+      url: baseUrl,
+      author: {
+        "@type": "Person",
+        name: "Ranit Manik",
+        url: "https://github.com/RanitManik",
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
