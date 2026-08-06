@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { auth } from "@/auth";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Grova",
+  title: "Terms of Service",
   description: "Terms of Service for Grova.",
 };
 

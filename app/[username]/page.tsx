@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!user) {
     return {
-      title: "User Not Found | Grova",
+      title: "User Not Found",
       description: "The requested user profile does not exist on Grova.",
     };
   }
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "profile",
       url: profileUrl,
-      title: `${displayName} (@${username}) — Grova`,
+      title: `${displayName} (@${username}) | Grova`,
       description,
       siteName: "Grova",
       images: [
@@ -88,7 +88,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${displayName} (@${username}) — Grova`,
+      title: `${displayName} (@${username}) | Grova`,
       description,
       images: [ogImageUrl],
       creator: "@Grova",

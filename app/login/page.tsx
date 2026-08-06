@@ -6,7 +6,7 @@ import { GrovaLogo } from "@/components/shared/logo";
 import { ArrowLeft, AlertCircle, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Sign In — Grova",
+  title: "Sign In",
   description: "Sign in to Grova to track your goals and build streaks.",
 };
 
