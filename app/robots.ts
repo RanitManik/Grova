@@ -14,6 +14,8 @@ export default function robots(): MetadataRoute.Robots {
         "/settings",
         "/onboarding",
         "/api/",
+        "/og-preview",
+        "/test-error",
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,

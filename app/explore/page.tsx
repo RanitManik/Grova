@@ -6,9 +6,28 @@ import { auth } from "@/auth";
 import { SidebarLayout } from "@/components/shared/sidebar";
 import { ExploreFilters } from "./explore-filters";
 
+const baseUrl = process.env.NEXTAUTH_URL || "https://grova.5dev.in";
+
 export const metadata: Metadata = {
   title: "Explore",
-  description: "Discover productive people on Grova",
+  description:
+    "Discover active habit builders, top daily streaks, and public goal progress on Grova.",
+  alternates: {
+    canonical: `${baseUrl}/explore`,
+  },
+  openGraph: {
+    title: "Explore | Grova",
+    description:
+      "Discover active habit builders, top daily streaks, and public goal progress on Grova.",
+    url: `${baseUrl}/explore`,
+    siteName: "Grova",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Explore | Grova",
+    description:
+      "Discover active habit builders, top daily streaks, and public goal progress on Grova.",
+  },
 };
 
 export default async function ExplorePage({
